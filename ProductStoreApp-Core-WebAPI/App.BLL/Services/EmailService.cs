@@ -53,7 +53,7 @@ namespace App.BLL.Services
             emailMessage.Subject = "Excel file";
 
             var builder = new BodyBuilder();
-            builder.Attachments.Add("D:/Study/VironIT/TestApp/Core2.1-WebAPI-Angular/ProductStoreApp-Core-WebAPI/ProductStoreApp-Core-WebAPI/wwwroot/" + path);
+            builder.Attachments.Add("D:/Study/VironIT/Apps/Core2.1-WebAPI-Angular/ProductStoreApp-Core2.1-WebAPI-Angular/ProductStoreApp-Core-WebAPI/App.API/wwwroot/" + path);
             emailMessage.Body = builder.ToMessageBody();
 
             using (var client = new SmtpClient())
