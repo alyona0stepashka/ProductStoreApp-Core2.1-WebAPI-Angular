@@ -1,0 +1,298 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.WebAPI\\App.WebAPI.csproj": {}
+  },
+  "projects": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
+        "projectName": "App.BLL",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
+        "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\STEPASHKA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "GemBox.Spreadsheet": {
+              "target": "Package",
+              "version": "[43.0.0.1127, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[2.1.5.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
+        "projectName": "App.DAL",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
+        "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\STEPASHKA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
+        "projectName": "App.Models",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
+        "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\STEPASHKA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Cryptography.Internal": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.WebAPI\\App.WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.WebAPI\\App.WebAPI.csproj",
+        "projectName": "App.WebAPI",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.WebAPI\\App.WebAPI.csproj",
+        "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.WebAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\STEPASHKA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Authentication.Core": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[5.4.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

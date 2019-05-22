@@ -12355,8 +12355,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "App.BLL >= 1.0.0",
-      "App.DAL >= 1.0.0",
-      "App.Models >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0"
@@ -12394,12 +12392,6 @@
           "projectReferences": {
             "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
               "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj"
-            },
-            "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
-              "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
-            },
-            "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
-              "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
             }
           }
         }
@@ -12442,7 +12434,7 @@
     {
       "code": "NU1107",
       "level": "Error",
-      "message": "Обнаружен конфликт версий для Microsoft.AspNetCore.Cryptography.Internal. Установите или укажите прямую ссылку Microsoft.AspNetCore.Cryptography.Internal 2.2.0 на проект App.API, чтобы устранить эту проблему. \r\n App.API -> App.DAL -> Microsoft.Extensions.Identity.Stores 2.2.0 -> Microsoft.Extensions.Identity.Core 2.2.0 -> Microsoft.AspNetCore.Cryptography.KeyDerivation 2.2.0 -> Microsoft.AspNetCore.Cryptography.Internal (>= 2.2.0) \r\n App.API -> Microsoft.AspNetCore.App 2.1.1 -> Microsoft.AspNetCore.Cryptography.Internal (>= 2.1.1 && < 2.2.0).",
+      "message": "Обнаружен конфликт версий для Microsoft.AspNetCore.Cryptography.Internal. Установите или укажите прямую ссылку Microsoft.AspNetCore.Cryptography.Internal 2.2.0 на проект App.API, чтобы устранить эту проблему. \r\n App.API -> App.BLL -> App.DAL -> Microsoft.Extensions.Identity.Stores 2.2.0 -> Microsoft.Extensions.Identity.Core 2.2.0 -> Microsoft.AspNetCore.Cryptography.KeyDerivation 2.2.0 -> Microsoft.AspNetCore.Cryptography.Internal (>= 2.2.0) \r\n App.API -> Microsoft.AspNetCore.App 2.1.1 -> Microsoft.AspNetCore.Cryptography.Internal (>= 2.1.1 && < 2.2.0).",
       "libraryId": "Microsoft.AspNetCore.Cryptography.Internal",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.1"

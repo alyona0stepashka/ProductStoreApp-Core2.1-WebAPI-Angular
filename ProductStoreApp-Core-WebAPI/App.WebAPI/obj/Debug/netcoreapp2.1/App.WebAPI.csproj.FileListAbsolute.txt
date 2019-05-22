@@ -1,0 +1,11 @@
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\bin\Debug\netcoreapp2.1\App.WebAPI.deps.json
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\bin\Debug\netcoreapp2.1\App.WebAPI.runtimeconfig.json
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\bin\Debug\netcoreapp2.1\App.WebAPI.runtimeconfig.dev.json
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\bin\Debug\netcoreapp2.1\App.WebAPI.dll
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.csprojAssemblyReference.cache
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.csproj.CoreCompileInputs.cache
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.RazorAssemblyInfo.cache
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.RazorAssemblyInfo.cs
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.AssemblyInfoInputs.cache
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.AssemblyInfo.cs
+D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.WebAPI\obj\Debug\netcoreapp2.1\App.WebAPI.RazorTargetAssemblyInfo.cache
