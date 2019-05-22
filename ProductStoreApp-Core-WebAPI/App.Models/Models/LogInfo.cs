@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Models
 {
-    public class Log4Net
+    public class LogInfo
     {
         [Key]
         public int Id { get; set; }

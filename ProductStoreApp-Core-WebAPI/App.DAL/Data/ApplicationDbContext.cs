@@ -14,11 +14,17 @@ namespace App.DAL.Data
         public DbSet<FileModel> FileModels { get; set; }
 
         public DbSet<EventLog> EventLogs { get; set; }
-        public DbSet<Log4Net> Log4Nets { get; set; }
+        public DbSet<LogInfo> LogInfos { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
             //Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

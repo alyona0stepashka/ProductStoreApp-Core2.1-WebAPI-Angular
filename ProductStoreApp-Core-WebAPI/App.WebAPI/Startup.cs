@@ -10,6 +10,8 @@ using App.DAL.Data;
 using App.DAL.Interfaces;
 using App.DAL.Repositories;
 using App.Models;
+//using App.WebAPI.ApplicationLogger;
+using App.WebAPI.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +25,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace App.WebAPI
@@ -58,6 +61,19 @@ namespace App.WebAPI
                 options.Password.RequiredLength = 4;
             }
             );
+
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(LogActionFilter));
+                options.Filters.Add(typeof(LogErrorFilter));
+            }).AddJsonOptions(options =>
+            {
+                var resolver = options.SerializerSettings.ContractResolver;
+                if (resolver != null)
+                    ((DefaultContractResolver)resolver).NamingStrategy = null;
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddCors();
 
@@ -98,8 +114,11 @@ namespace App.WebAPI
                 c.SwaggerDoc("v1", new Info { Title = "WebAppTest", Description = "Swagger API" });
             });
         }
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*, ILoggerFactory loggerFactory*/)
         {
+           // var connection = Configuration.GetConnectionString("DefaultConnection");
+            //loggerFactory.AddContext(LogLevel.Information, connection);
+
             app.Use(async (ctx, next) =>
             {
                 await next();
