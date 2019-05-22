@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj": {}
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj": {}
   },
   "projects": {
-    "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj",
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj",
         "projectName": "App.API",
-        "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\App.API.csproj",
         "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
-        "outputPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\obj\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,14 +30,14 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
-                "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj"
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj"
               },
-              "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
-                "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
               },
-              "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
-                "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
               }
             }
           }
@@ -76,14 +76,14 @@
         }
       }
     },
-    "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
         "projectName": "App.BLL",
-        "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\App.BLL.csproj",
         "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
-        "outputPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\obj\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -102,8 +102,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
-                "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj"
               }
             }
           }
@@ -148,14 +148,14 @@
         }
       }
     },
-    "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
         "projectName": "App.DAL",
-        "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\App.DAL.csproj",
         "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
-        "outputPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\obj\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -174,8 +174,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
-                "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
+              "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
+                "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj"
               }
             }
           }
@@ -220,14 +220,14 @@
         }
       }
     },
-    "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
+    "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
+        "projectUniqueName": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
         "projectName": "App.Models",
-        "projectPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
+        "projectPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\App.Models.csproj",
         "packagesPath": "C:\\Users\\STEPASHKA\\.nuget\\packages\\",
-        "outputPath": "D:\\Study\\VironIT\\TestApp\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\obj\\",
+        "outputPath": "D:\\Study\\VironIT\\Apps\\Core2.1-WebAPI-Angular\\ProductStoreApp-Core2.1-WebAPI-Angular\\ProductStoreApp-Core-WebAPI\\App.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -16,7 +16,10 @@ namespace App.DAL.Initializer
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
             }
-
+            if (await roleManager.FindByNameAsync("manager") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("manager"));
+            }
             if (await roleManager.FindByNameAsync("user") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("user"));
