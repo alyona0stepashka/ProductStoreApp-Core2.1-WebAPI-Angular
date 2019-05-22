@@ -1,0 +1,16 @@
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\App.Models.dll
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.csprojAssemblyReference.cache
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.csproj.CoreCompileInputs.cache
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.AssemblyInfoInputs.cache
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.AssemblyInfo.cs
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\App.DAL.deps.json
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\App.DAL.dll
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\App.DAL.pdb
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\Newtonsoft.Json.dll
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\App.Models.pdb
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\bin\Debug\netcoreapp2.1\Newtonsoft.Json.xml
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.csproj.CopyComplete
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.dll
+D:\Study\VironIT\TestApp\Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.DAL\obj\Debug\netcoreapp2.1\App.DAL.pdb
