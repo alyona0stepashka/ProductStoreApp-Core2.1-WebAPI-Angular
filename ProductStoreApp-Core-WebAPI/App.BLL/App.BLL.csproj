@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="GemBox.Spreadsheet" Version="43.0.0.1127" />
     <PackageReference Include="MailKit" Version="2.1.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />

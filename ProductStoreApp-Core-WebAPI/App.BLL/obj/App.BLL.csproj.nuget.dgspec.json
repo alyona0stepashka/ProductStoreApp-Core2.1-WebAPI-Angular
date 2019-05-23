@@ -45,6 +45,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
             "GemBox.Spreadsheet": {
               "target": "Package",
               "version": "[43.0.0.1127, )"
