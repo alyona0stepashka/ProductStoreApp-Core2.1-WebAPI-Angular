@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using App.BLL.Infrastructure;
 using App.BLL.Interfaces;
-using App.BLL.ViewModel;
-using App.Models.Entities;
+using App.BLL.ViewModels;
+using App.Models;
 
-namespace App.WEBAPI.Controllers
+namespace App.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,34 +25,34 @@ namespace App.WEBAPI.Controllers
         // GET : api/product
         [HttpGet]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var product = _productService.GetProducts();
-            return new ObjectResult(product);
+            var product = await _productService.GetProductsAsync();
+            return Ok(product);
         }
 
         //GET : api/product/1
         [HttpGet("{id}")]
         [Authorize(Roles = "admin, user")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var product = _productService.FindProductWithPhotos(id);
+            var product = await _productService.GetProductAsync(id);
             if (product == null)
                 return NotFound();
-            return new ObjectResult(product);
+            return Ok(product);
         }
 
         //POST : /api/product/CreateProduct
         [HttpPost, Route("CreateProduct")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Post([FromForm] ProductViewModel createProduct)
+        public async Task<IActionResult> Post([FromForm] ProductEditOrCreateVM createProduct)
         {
             if (createProduct == null)
                 return BadRequest();
 
             const int lengthMax = 2097152;
             const string correctType = "image/jpeg";
-            foreach (var uploadedFile in createProduct.Photos)
+            foreach (var uploadedFile in createProduct.UploadImages)
             {
                 var type = uploadedFile.ContentType;
                 var length = uploadedFile.Length;
@@ -70,9 +70,9 @@ namespace App.WEBAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newProduct = _productService.CreateProduct(createProduct);
+            var newProduct = await _productService.CreateProductAsync(createProduct);
             if (newProduct != null)
-                await _fileService.AddPhotosInProductAsync(newProduct.Id, createProduct.Photos);
+                await _fileService.AddPhotosInProductAsync(newProduct.Id, createProduct.UploadImages);
             BadRequest(new { message = "Error creating product" });
             return Ok(createProduct);
         }
@@ -80,28 +80,28 @@ namespace App.WEBAPI.Controllers
         //PUT : /api/product/EditProduct/1
         [HttpPut, Route("EditProduct/{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Put(int id, [FromForm] EditProductViewModel editProduct)
+        public async Task<IActionResult> Put(int id, [FromForm] ProductEditOrCreateVM editProduct)
         {
             if (editProduct == null)
                 return BadRequest();
 
-            var product = _productService.GetProduct(id);
-            if (product == null)
+            var db_product = await _productService.GetProductAsync(id);
+            if (db_product == null)
                 return NotFound();
 
-            _productService.EditProduct(product, editProduct);
-            return Ok(editProduct);
+            var product = await _productService.EditProductAsync(editProduct);
+            return Ok(product);
         }
 
         //DELETE : /api/product/DeleteProduct/1
         [HttpDelete, Route("DeleteProduct/{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var product = _productService.GetProduct(id);
+            var product = await _productService.GetProductAsync(id);
             if (product == null)
                 return NotFound();
-            _productService.DeleteProduct(id);
+            await _productService.DeleteProductAsync(id);
             return Ok(product);
         }
     }

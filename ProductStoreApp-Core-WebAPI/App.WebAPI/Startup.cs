@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 using App.BLL.Interfaces;
 using App.BLL.Services;
 using App.DAL.Data;
 using App.DAL.Interfaces;
 using App.DAL.Repositories;
 using App.Models;
+using App.WebAPI.AutoMapper;
 //using App.WebAPI.ApplicationLogger;
 using App.WebAPI.Filters;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,6 +64,12 @@ namespace App.WebAPI
             }
             );
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMvc(options =>
             {

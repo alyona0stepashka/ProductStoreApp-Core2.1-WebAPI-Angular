@@ -19,6 +19,8 @@ namespace App.BLL.ViewModels
         [Required]
         public decimal Price { get; set; }
 
+        public DateTime DateAdded { get; set; }
+
         public List<IFormFile> UploadImages { get; set; }
         public List<string> ImagesURL { get; set; }  //for create = null
     }

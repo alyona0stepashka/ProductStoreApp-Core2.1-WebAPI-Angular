@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using App.BLL.Interfaces;
-using App.BLL.ViewModel;
+using App.BLL.ViewModels;
 
-namespace App.WEBAPI.Controllers
+namespace App.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -26,24 +26,20 @@ namespace App.WEBAPI.Controllers
 
         //GET: /api/user/UserProfile
         [Authorize(Roles = "admin, user")]
-        [HttpGet, Route("UserProfile")]
-        public async Task<object> GetUserProfile()
+        [HttpGet]
+        [Route("profile")]
+        public async Task<IActionResult> GetUserProfile()
         {
             var userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _accountService.GetUser(userId);
-            return new
-            {
-                user.FirstName,
-                user.LastName,
-                user.DateOfRegisters,
-                user.UserName
-            };
+            var user = await _accountService.GetUserAsync(userId);
+            return Ok(user);
         }
 
         //PUT: /api/user/EditUserInformation
         [Authorize(Roles = "admin, user")]
-        [HttpPut, Route("EditUserInformation")]
-        public async Task<object> EditUserInformation([FromForm] EditUserInformationViewModel editUser)
+        [HttpPut]
+        //[Route("EditUserInformation")]
+        public async Task<IActionResult> EditUserInformation([FromForm] UserEditOrShowVM editUser)
         {
             if (editUser == null)
                 return BadRequest();
@@ -51,23 +47,23 @@ namespace App.WEBAPI.Controllers
             var userId = User.Claims.First(x => x.Type == "UserId").Type;
             editUser.Id = userId;
 
-            await _userService.EditUser(editUser);
-            return Ok(editUser);
+            var user = await _userService.EditUserAsync(editUser);
+            return Ok(user);
         }
 
-        //PUT: /api/user/EditUserAvatar
-        [Authorize(Roles = "admin, user")]
-        [HttpPut, Route("EditUserAvatar")]
-        public async Task<object> EditUserAvatar([FromForm] EditUserAvatarViewModel editAvatar)
-        {
-            if (editAvatar == null)
-                return BadRequest();
+        ////PUT: /api/user/EditUserAvatar
+        //[Authorize(Roles = "admin, user")]
+        //[HttpPut, Route("EditUserAvatar")]
+        //public async Task<IActionResult> EditUserAvatar([FromForm] UserEditOrShowVM editAvatar)
+        //{
+        //    if (editAvatar == null)
+        //        return BadRequest();
 
-            var userId = User.Claims.First(x => x.Type == "UserId").Type;
-            editAvatar.Id = userId;
+        //    var userId = User.Claims.First(x => x.Type == "UserId").Type;
+        //    editAvatar.Id = userId;
 
-            await _userService.EditUserAvatar(editAvatar);
-            return Ok(editAvatar);
-        }
+        //    await _userService.EditUserAvatar(editAvatar);
+        //    return Ok(editAvatar);
+        //}
     }
 }

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using App.BLL.Infrastructure;
 using App.BLL.Interfaces;
-using App.BLL.ViewModel;
+using App.BLL.ViewModels;
 using App.Models;
 using System.Threading.Tasks;
 
-namespace App.WEBAPI.Controllers
+namespace App.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/order")]
     [ApiController]
     public class OrderController : ControllerBase
     {

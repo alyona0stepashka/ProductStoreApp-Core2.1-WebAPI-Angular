@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using App.Models;
-using App.BLL.ViewModel;
+using App.BLL.ViewModels;
 using System.Threading.Tasks;
+using App.BLL.ViewModels;
 
 namespace App.BLL.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetProductsAsync();
-        Task<Product> GetProductAsync(int? id);
-        Task<Product> CreateProductAsync(ProductViewModel createProduct);
-        Task<Product> EditProductAsync(Product product, EditProductViewModel editProduct);
+        Task<IEnumerable<ProductShowVM>> GetProductsAsync();
+        Task<ProductShowVM> GetProductAsync(int id);
+        Task<ProductEditOrCreateVM> CreateProductAsync(ProductEditOrCreateVM createProduct);
+        Task<ProductEditOrCreateVM> EditProductAsync(ProductEditOrCreateVM editProduct);
         Task DeleteProductAsync(int id);
-        Task<IEnumerable<Product>> FindProductWithPhotosAsync(int id);
+        //Task<IEnumerable<ProductEditOrCreateVM>> FindProductWithPhotosAsync(int id);
         void Dispose();
     }
 }

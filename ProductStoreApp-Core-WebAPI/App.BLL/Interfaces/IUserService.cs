@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using App.Models;
-using App.BLL.ViewModel; 
+using App.BLL.ViewModels; 
 
 namespace App.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<User> EditUser(EditUserInformationViewModel editUser);
-        Task<User> EditUserAvatar(EditUserAvatarViewModel editAvatar);
-        Task<User> GetUserAsync(string id);
+        Task<UserEditOrShowVM> EditUserAsync(UserEditOrShowVM editUser);
+        //Task<User> EditUserAvatar(EditUserAvatarViewModel editAvatar);
+        //Task<UserEditOrShowVM> GetUserAsync(string id);
     }
 }

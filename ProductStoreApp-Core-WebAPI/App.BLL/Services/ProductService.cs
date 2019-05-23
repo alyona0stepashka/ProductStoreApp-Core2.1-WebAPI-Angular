@@ -1,50 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using App.BLL.Infrastructure;
-using App.BLL.Interfaces;
-using App.BLL.ViewModel;
+using App.BLL.Interfaces; 
+using App.BLL.ViewModels;
 using App.DAL.Interfaces;
-using App.Models; 
+using App.Models;
+using AutoMapper;
 
 namespace App.BLL.Services
 {
     public class ProductService : IProductService
     {
         private IUnitOfWork _db { get; set; }
-        public ProductService(IUnitOfWork uow)
+        private readonly IMapper _mapper;
+        public ProductService(IUnitOfWork uow, IMapper mapper)
         {
             _db = uow;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<ProductShowVM>> GetProductsAsync()
         {
-            return await _db.Products.GetAllAsync();
+            var db_products = (await _db.Products.GetAllAsync()).ToList(); 
+            var products = _mapper.Map<List<ProductShowVM>>(db_products);
+            return products;
         }
 
-        public async Task<Product> GetProductAsync(int? id)
+        public async Task<ProductShowVM> GetProductAsync(int id)
         {
-            if (id == null)
-                throw new ValidationException("Invalid id", "");
-
-            return await _db.Products.GetAsync(id.Value);
+            var db_product = await _db.Products.GetAsync(id);
+            var product = _mapper.Map<ProductShowVM>(db_product);
+            return product;
         }
 
-        public async Task<Product> CreateProductAsync(ProductViewModel createProduct)
+        public async Task<ProductEditOrCreateVM> CreateProductAsync(ProductEditOrCreateVM createProduct)
         {
             try
             {
-                var newProduct = new Product
-                {
-                    Name = createProduct.Name,
-                    Price = createProduct.Price,
-                    Description = createProduct.Description,
-                    DateAdded = DateTime.Now
-                };
-
-                await _db.Products.CreateAsync(newProduct);
-                await _db.SaveAsync();
-                return newProduct;
+                createProduct.DateAdded = DateTime.Now;
+                var product = _mapper.Map<Product>(createProduct); 
+                var db_prod = await _db.Products.CreateAsync(product); 
+                return _mapper.Map<ProductEditOrCreateVM>(db_prod);
             }
             catch (Exception ex)
             {
@@ -52,18 +50,13 @@ namespace App.BLL.Services
             }
         }
 
-        public async Task<Product> EditProductAsync(Product product, EditProductViewModel editProduct)
+        public async Task<ProductEditOrCreateVM> EditProductAsync(ProductEditOrCreateVM editProduct)
         {
             try
             {
-                product.Name = editProduct.Name;
-                product.Price = editProduct.Price;
-                product.Description = editProduct.Description;
-                product.DateAdded = DateTime.Now;
-
-                await _db.Products.UpdateAsync(product);
-                await _db.SaveAsync();
-                return product;
+                var product = _mapper.Map<Product>(editProduct);
+                var db_prod = await _db.Products.UpdateAsync(product); 
+                return _mapper.Map<ProductEditOrCreateVM>(db_prod);
             }
             catch (Exception ex)
             {
@@ -73,14 +66,13 @@ namespace App.BLL.Services
 
         public async Task DeleteProductAsync(int id)
         {
-            await _db.Products.DeleteAsync(id);
-            await _db.SaveAsync();
+            await _db.Products.DeleteAsync(id); 
         }
 
-        public async Task<IEnumerable<Product>> FindProductWithPhotosAsync(int id)
-        {
-            return await _db.Products.FindAsync(x => x.Id == id);
-        }
+        //public async Task<IEnumerable<Product>> FindProductWithPhotosAsync(int id)
+        //{
+        //    return await _db.Products.FindAsync(x => x.Id == id);
+        //}
 
         public void Dispose()
         {

@@ -10,12 +10,12 @@ namespace App.Models
         public int Id { get; set; }
 
         [ForeignKey("Product")]
-        public int IdProduct { get; set; }
+        public int ProductId { get; set; }
 
         public string Name { get; set; }
         public string Path { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Product Product { get; set; }
     }
 }

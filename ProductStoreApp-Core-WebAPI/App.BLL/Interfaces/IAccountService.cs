@@ -4,15 +4,17 @@ using System.Threading.Tasks;
 using App.Models;
 using Microsoft.AspNetCore.Identity;
 using App.BLL.Infrastructure;
-using App.BLL.ViewModel; 
+using App.BLL.ViewModels; 
 
 namespace App.BLL.Interfaces
 {
     public interface IAccountService
     {
-        Task<object> RegisterUser(RegisterViewModel model);
-        Task<object> LoginUser(LoginViewModel model);
-        Task<User> GetUser(string userId);
+        Task<object> RegisterUserAsync(UserRegisterVM model);
+        Task ConfirmEmailAsync(string user_id);
+        Task<object> LoginUserAsync(UserLoginVM model);
+        Task<UserEditOrShowVM> GetUserAsync(string user_id);
+        Task<User> GetDbUserAsync(string user_id);
         void Dispose();
     }
 }

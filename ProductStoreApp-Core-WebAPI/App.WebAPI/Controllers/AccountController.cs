@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using App.BLL.Interfaces;
-using App.BLL.ViewModel;
+using App.BLL.Interfaces; 
+using App.BLL.ViewModels;
 
-namespace App.WEBAPI.Controllers
+namespace App.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,42 +16,43 @@ namespace App.WEBAPI.Controllers
         }
 
         //POST: /api/account/Register
-        [HttpPost, Route("Register")]
-        public async Task<object> Register([FromForm]RegisterViewModel model)
+        [HttpPost]
+        [Route("register")]
+        public async Task<object> Register([FromForm]UserRegisterVM model)
         {
-            var url = HttpContext.Request.Host.ToString();
-            var result = await _accountService.RegisterUser(model/*, url*/);
+            //var url = HttpContext.Request.Host.ToString();
+            var result = await _accountService.RegisterUserAsync(model/*, url*/);
             if (result == null)
                 return BadRequest(new { message = "Error" });
             return Ok(result);
         }
 
-        //GET: /api/account/ConfirmEmail?userid=value&code=value
-        [HttpGet]
-        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        [HttpGet("{id}")]
+        [Route("email/confirm")]
+        //[HttpGet("{user_id}", "{code}")]
+        //[Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IActionResult> ConfirmEmail(string id/*, string code*/)  //user_id
         {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            if (string.IsNullOrWhiteSpace(id)/* || string.IsNullOrWhiteSpace(code)*/)
             {
-                ModelState.AddModelError("", "User Id and Code are required");
+                ModelState.AddModelError("", "UserId and Code are required");
                 return BadRequest(ModelState);
             }
-            var user = await _accountService.GetUser(userId);
+            var user = await _accountService.GetUserAsync(id);
             if (user == null)
             {
                 return BadRequest("Error");
             }
-            var result = await _accountService.ConfirmEmail(user, code);
-            if (result.Succeeded)
-                return Ok();
-            return BadRequest(result.Message);
+            await _accountService.ConfirmEmailAsync(id/*, code*/);
+            return Ok();
         }
 
         //POST : /api/account/Login
-        [HttpPost, Route("Login")]
-        public async Task<IActionResult> Login([FromForm]LoginViewModel model)
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromForm]UserLoginVM model)
         {
-            var token = await _accountService.LoginUser(model);
+            var token = await _accountService.LoginUserAsync(model);
             if (token != null)
                 return Ok(new { token });
             return BadRequest(new { message = "Username or password is incorrect or not confirm email." });
