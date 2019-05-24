@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using App.BLL.Interfaces;
+using App.BLL.ViewModels;
 using App.DAL.Interfaces;
 using App.Models;
 using GemBox.Spreadsheet;
@@ -27,9 +28,35 @@ namespace App.BLL.Services
             await _db.SaveAsync();
         }
 
+        public async Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string user_id)
+        {
+            var order_history = new List<OrderHistoryVM>();
+            var orders = new List<Order>();
+            if (user_id == null)
+            {
+                orders = (await _db.Orders.GetAllAsync()).ToList();
+            }
+            else
+            {
+                orders = (await FindOrdersAsync(user_id)).ToList();
+            }            
+            foreach (var order in orders)
+            {
+                var history_item = new OrderHistoryVM {Id=order.Id, DatePurchase=order.PurchaseDate, ProductIds=new List<int>(), ProductNames=new List<string>(), ProductPrices=new List<decimal>() };
+                foreach (var product in order.OrderProducts)
+                {
+                    history_item.ProductIds.Add(product.ProductId);
+                    history_item.ProductNames.Add(product.Product.Name);
+                    history_item.ProductPrices.Add(product.Product.Price);
+                }
+                order_history.Add(history_item);
+            }
+            return  order_history;
+        }
+
         public async Task<IEnumerable<Order>> FindOrdersAsync(string userId)
         {
-            return  await _db.Orders.FindAsync(x => x.UserId == userId);
+            return await _db.Orders.FindAsync(x => x.UserId == userId);
         }
 
         public async Task<IEnumerable<Order>> FindOrdersByDateAsync(DateTime fromDateTime, DateTime toDateTime)

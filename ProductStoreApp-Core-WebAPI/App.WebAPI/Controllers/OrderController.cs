@@ -40,146 +40,46 @@ namespace App.WebAPI.Controllers
             _emailService = emailService;
             _appEnvironment = appEnvironment;
         }
-
-        //GET : /api/order
+         
+         
         [HttpGet]
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Get()
-        {
-            var cart = _sessionHelper
-                .GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-            if (cart != null)
-                return new ObjectResult(cart);
-            return BadRequest(new { message = "Sorry, your shopping cart is empty." });
-        }
-
-        //POST : /api/order/AddProductInCart/id
-        [HttpPost, Route("AddProductInCart/{id}")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> PostAsync(int id)
-        {
-            var product = await _productService.GetProductAsync(id);
-            var elementsInCart = _sessionHelper
-                .GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-            if (elementsInCart != null)
-            {
-                var cart = _sessionHelper
-                    .GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-                var index = IsExist(id);
-                if (index != -1)
-                    cart[index].Amount++;
-                cart.Add(new OrderProduct { Product = product, Amount = 1 });
-                _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-                return Ok(cart);
-            }
-            else
-            {
-                var cart = new List<OrderProduct>
-                {
-                    new OrderProduct {Product = product, Amount = 1}
-                };
-                _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-                return Ok(cart);
-            }
-        }
-
-        //POST : /api/order/BuyAllProductInCart
-        [HttpPost, Route("BuyAllProductInCart")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> BuyAsync()
-        {
-            var getAllProduct =
-                _sessionHelper.GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, key: "cart");
-            if (getAllProduct == null)
-                return BadRequest(new{ message = "Sorry, your shopping cart is empty!" });
-
-            var userId = User.Claims.First(c => c.Type == "UserID").Value;
-
-            var orderProducts = new List<OrderProduct>();
-            try
-            {
-                var order = new Order
-                {
-                    UserId = userId,
-                    PurchaseDate = DateTime.Now
-                };
-                await _orderService.AddOrderAsync(order);
-
-                foreach (var item in getAllProduct)
-                {
-                    orderProducts.Add(new OrderProduct
-                    {
-                        ProductId = item.Product.Id,
-                        OrderId = order.Id,
-                        Amount = item.Amount
-                    });
-                }
-                await _orderProductService.AddOrderProductAsync(orderProducts);
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-            }
-
-            return Ok(orderProducts);
-        }
-
-        //POST : /api/order/RemoveProductFromCart/id
-        [HttpPost, Route("RemoveProductFromCart/{id}")]
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Remove(int id)
-        {
-            var cart = _sessionHelper
-                .GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-            var index = IsExist(id);
-            cart.RemoveAt(index);
-            _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-            return Ok(cart);
-        }
-
-        //GET : /api/order/CheckOrderHistory
-        [HttpGet, Route("CheckOrderHistory")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> DetailsAsync()
-        {
-            var userId = User.Claims.First(c => c.Type == "UserID").Value;
-
-            var orders = await _orderService.FindOrdersAsync(userId);
-            var orderProducts = await  _orderProductService.FindOrderProductByOrdersAsync(orders);
-
-            var orderAmount = _orderProductService.GetOrderAmount(orderProducts);
-
-            var history = new UserOrderHistoryViewModel()
-            {
-                OrderProduct = orderProducts,
-                OrderAmount = orderAmount
-            };
-
-            return Ok(history);
-        }
-
-        //Get : /api/order/ReportOrderByDate
-        [HttpGet, Route("ReportOrderByDate")]
+        [Route("history/admin")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ReportAsync([FromForm] ReportOrderViewModel model)
-        {
-            var orderByDate = (await _orderService.FindOrdersByDateAsync(model.FromDate, model.ToDate)).ToList();
-            var orderProductByDate = await _orderProductService.FindOrderProductByOrdersAsync(orderByDate);
-            var productByDate = orderProductByDate.ToList();
-
-            var countOrder = orderByDate.Count;
-            var orderAmount = _orderProductService.GetOrderAmount(productByDate);
-
-            var result = new ResultReportOrderViewModel()
-            {
-                OrderProduct = productByDate,
-                CountOrder = countOrder,
-                OrderAmount = orderAmount
-            };
-
-            return Ok(result);
+        public async Task<IActionResult> DetailsAsync()
+        { 
+            var order_history = (await _orderService.GetHistoryAsync(null)).ToList(); 
+            return Ok(order_history);
         }
+
+        [HttpGet]
+        [Route("history/user")]
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> DetailsUserAsync()
+        {
+            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
+            var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList();
+            return Ok(order_history);
+        }
+
+        [HttpGet]
+        [Route("history/date/admin")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DetailsDateAsync(DateTime dateFrom, DateTime dateTo)
+        {
+            var order_history = (await _orderService.GetHistoryAsync(null)).ToList().Where(m=>m.DatePurchase<=dateTo && m.DatePurchase>=dateFrom);
+            return Ok(order_history);
+        }
+
+        [HttpGet]
+        [Route("history/date/user")]
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> DetailsDateUserAsync(DateTime dateFrom, DateTime dateTo)
+        {
+            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
+            var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
+            return Ok(order_history);
+        }
+         
 
         /*
         [HttpPost]
@@ -220,18 +120,5 @@ namespace App.WebAPI.Controllers
             return RedirectToAction("Index", "Admin");
         }*/
 
-        private int IsExist(int id)
-        {
-            var cart = _sessionHelper.GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-            for (var i = 0; i < cart.Count; i++)
-            {
-                if (cart[i].Product.Id.Equals(id))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
     }
 }

@@ -19,6 +19,7 @@ namespace App.WebAPI.AutoMapper
             CreateMap<User, UserRegisterVM>().ReverseMap();
             CreateMap<User, UserEditOrShowVM>().ReverseMap();
             CreateMap<User, UserLoginVM>().ReverseMap();
+            CreateMap<Order, OrderHistoryVM>().ReverseMap();
         }
     }
 }

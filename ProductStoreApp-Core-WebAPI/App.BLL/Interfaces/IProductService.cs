@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using App.Models;
 using App.BLL.ViewModels;
-using System.Threading.Tasks;
-using App.BLL.ViewModels;
+using System.Threading.Tasks; 
 
 namespace App.BLL.Interfaces
 {

@@ -38,7 +38,7 @@ namespace App.BLL.Services
                 {
                     Name = uploadedFile.FileName,
                     Path = path,
-                    IdProduct = idProduct
+                    ProductId = idProduct
                 };
                 await _db.FileModels.CreateAsync(file);
             }
