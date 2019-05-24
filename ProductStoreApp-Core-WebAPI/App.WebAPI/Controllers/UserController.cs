@@ -10,7 +10,7 @@ using App.BLL.ViewModels;
 
 namespace App.WebAPI.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -23,47 +23,28 @@ namespace App.WebAPI.Controllers
             _accountService = accountService;
             _userService = userService;
         }
-
-        //GET: /api/user/UserProfile
-        [Authorize(Roles = "admin, user")]
-        [HttpGet]
-        [Route("profile")]
+         
+        [HttpGet] 
+        [Authorize]
         public async Task<IActionResult> GetUserProfile()
         {
-            var userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _accountService.GetUserAsync(userId);
+            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _accountService.GetUserAsync(user_id);
             return Ok(user);
         }
-
-        //PUT: /api/user/EditUserInformation
-        [Authorize(Roles = "admin, user")]
+         
         [HttpPut]
-        //[Route("EditUserInformation")]
+        [Authorize] 
         public async Task<IActionResult> EditUserInformation([FromForm] UserEditOrShowVM editUser)
         {
             if (editUser == null)
                 return BadRequest();
 
-            var userId = User.Claims.First(x => x.Type == "UserId").Type;
-            editUser.Id = userId;
+            var user_id = User.Claims.First(x => x.Type == "UserId").Type;
+            editUser.Id = user_id;
 
             var user = await _userService.EditUserAsync(editUser);
             return Ok(user);
-        }
-
-        ////PUT: /api/user/EditUserAvatar
-        //[Authorize(Roles = "admin, user")]
-        //[HttpPut, Route("EditUserAvatar")]
-        //public async Task<IActionResult> EditUserAvatar([FromForm] UserEditOrShowVM editAvatar)
-        //{
-        //    if (editAvatar == null)
-        //        return BadRequest();
-
-        //    var userId = User.Claims.First(x => x.Type == "UserId").Type;
-        //    editAvatar.Id = userId;
-
-        //    await _userService.EditUserAvatar(editAvatar);
-        //    return Ok(editAvatar);
-        //}
+        } 
     }
 }

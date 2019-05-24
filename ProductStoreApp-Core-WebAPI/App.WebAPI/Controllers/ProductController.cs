@@ -9,7 +9,7 @@ using App.Models;
 
 namespace App.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -21,31 +21,28 @@ namespace App.WebAPI.Controllers
             _productService = productService;
             _fileService = fileService;
         }
-
-        // GET : api/product
+         
         [HttpGet]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Get()
+        //[Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> GetAll()
         {
             var product = await _productService.GetProductsAsync();
             return Ok(product);
         }
-
-        //GET : api/product/1
+         
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> Get(int id)
+        //[Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _productService.GetProductAsync(id);
             if (product == null)
                 return NotFound();
             return Ok(product);
         }
-
-        //POST : /api/product/CreateProduct
-        [HttpPost, Route("CreateProduct")]
+         
+        [HttpPost] 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Post([FromForm] ProductEditOrCreateVM createProduct)
+        public async Task<IActionResult> CreateProduct([FromForm] ProductEditOrCreateVM createProduct)
         {
             if (createProduct == null)
                 return BadRequest();
@@ -76,11 +73,10 @@ namespace App.WebAPI.Controllers
             BadRequest(new { message = "Error creating product" });
             return Ok(createProduct);
         }
-
-        //PUT : /api/product/EditProduct/1
-        [HttpPut, Route("EditProduct/{id}")]
+         
+        [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Put(int id, [FromForm] ProductEditOrCreateVM editProduct)
+        public async Task<IActionResult> EditProduct(int id, [FromForm] ProductEditOrCreateVM editProduct)
         {
             if (editProduct == null)
                 return BadRequest();
@@ -92,11 +88,10 @@ namespace App.WebAPI.Controllers
             var product = await _productService.EditProductAsync(editProduct);
             return Ok(product);
         }
-
-        //DELETE : /api/product/DeleteProduct/1
-        [HttpDelete, Route("DeleteProduct/{id}")]
+        
+        [HttpDelete]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _productService.GetProductAsync(id);
             if (product == null)

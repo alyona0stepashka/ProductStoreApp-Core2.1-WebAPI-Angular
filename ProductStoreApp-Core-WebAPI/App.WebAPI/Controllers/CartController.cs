@@ -23,6 +23,7 @@ namespace App.WebAPI.Controllers
         private readonly IOrderProductService _orderProductService;
         private readonly IEmailService _emailService;
         private readonly IHostingEnvironment _appEnvironment;
+        private readonly ICartService _cartService;
 
         public CartController(IOrderService service,
             ISessionHelper helper,
@@ -30,6 +31,7 @@ namespace App.WebAPI.Controllers
             IAccountService account,
             IOrderProductService orderProductService,
             IEmailService emailService,
+            ICartService cartService,
             IHostingEnvironment appEnvironment)
         {
             _orderService = service;
@@ -38,12 +40,12 @@ namespace App.WebAPI.Controllers
             _accountService = account;
             _orderProductService = orderProductService;
             _emailService = emailService;
+            _cartService = cartService;
             _appEnvironment = appEnvironment;
         }
         [HttpGet]
-        //[Route("cart")]
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Get()
+        [Authorize]
+        public IActionResult GetCart()
         {
             var cart = _sessionHelper
                 .GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
@@ -53,104 +55,36 @@ namespace App.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Route("cart")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> PostAsync(int id)
+        [Authorize]
+        public async Task<IActionResult> AddProduct(int id)
         {
-            var product = await _productService.GetProductAsync(id);
-            var cart_products = _sessionHelper
-                .GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
-            if (cart_products != null)
-            {
-                var index = IsExist(id);
-                if (index != -1)
-                {
-                    cart_products[index].Amount++;
-                }
-                else
-                {
-                    cart_products.Add(new CartProductShowVM { ProductID = product.Id, Amount = 1, Name = product.Name, Price = product.Price });
-                    _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart_products);
-                }
-                return Ok(cart_products);
-            }
-            else
-            {
-                var cart = new List<CartProductShowVM>
-                {
-                    new CartProductShowVM { ProductID = product.Id, Amount = 1, Name = product.Name, Price = product.Price }
-                };
-                _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-                return Ok(cart);
-            }
+            var cart = await _cartService.AddProduct(HttpContext, id);
+            return Ok(cart);
         }
 
-        //[HttpPost]
         [HttpGet]
         [Route("purchase")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> BuyAsync()
-        {
-            var cart_products =
-                _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
-            if (cart_products == null)
-                return BadRequest(new { message = "Sorry, your shopping cart is empty!" });
-
-            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
-
-            var orderProducts = new List<OrderProduct>();
-            try
-            {
-                var order = new Order
-                {
-                    UserId = user_id,
-                    PurchaseDate = DateTime.Now
-                };
-                await _orderService.AddOrderAsync(order);
-
-                foreach (var item in cart_products)
-                {
-                    orderProducts.Add(new OrderProduct
-                    {
-                        ProductId = item.ProductID,
-                        OrderId = order.Id,
-                        Amount = item.Amount
-                    });
-                }
-                await _orderProductService.AddOrderProductAsync(orderProducts);
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-            }
-
-            return Ok(orderProducts);
-        }
-
-        [HttpDelete]
-        //[Route("delete")]
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Remove(int id)
+        [Authorize]
+        public async Task<IActionResult> CreateOrderFromCart()
         {
             var cart_products = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
-            var index = IsExist(id);
-            cart_products.RemoveAt(index);
-            _sessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart_products);
-            return Ok(cart_products);
-        }
-
-        private int IsExist(int id)
-        {
-            var cart = _sessionHelper.GetObjectFromJson<List<OrderProduct>>(HttpContext.Session, "cart");
-            for (var i = 0; i < cart.Count; i++)
+            if (cart_products == null)
             {
-                if (cart[i].Product.Id.Equals(id))
-                {
-                    return i;
-                }
+                return BadRequest(new { message = "Sorry, your shopping cart is empty!" });
             }
 
-            return -1;
+            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
+            var order = await _cartService.BuyAll(cart_products, user_id);
+            return Ok(order); 
         }
+
+        [HttpDelete("{id}")] 
+        [Authorize]
+        public IActionResult RemoveProduct(int id)
+        {
+            var cart = _cartService.RemoveProduct(HttpContext, id);
+            return Ok(cart);
+        }
+
     }
 }

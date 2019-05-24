@@ -113,6 +113,7 @@ namespace App.WebAPI
             services.AddScoped<IAdminService, AdminService>(); 
             services.AddScoped<ISessionHelper, SessionHelper>(); 
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderProductService, OrderProductService>(); 
             services.AddScoped<IFileService, FileService>(); 
 

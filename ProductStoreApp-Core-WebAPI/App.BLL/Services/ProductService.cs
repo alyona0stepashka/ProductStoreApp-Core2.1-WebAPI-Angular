@@ -67,12 +67,7 @@ namespace App.BLL.Services
         public async Task DeleteProductAsync(int id)
         {
             await _db.Products.DeleteAsync(id); 
-        }
-
-        //public async Task<IEnumerable<Product>> FindProductWithPhotosAsync(int id)
-        //{
-        //    return await _db.Products.FindAsync(x => x.Id == id);
-        //}
+        } 
 
         public void Dispose()
         {

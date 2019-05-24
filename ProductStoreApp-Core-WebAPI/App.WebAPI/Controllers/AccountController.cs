@@ -5,8 +5,7 @@ using App.BLL.ViewModels;
 
 namespace App.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/account"]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -14,8 +13,7 @@ namespace App.WebAPI.Controllers
         {
             _accountService = accountService;
         }
-
-        //POST: /api/account/Register
+         
         [HttpPost]
         [Route("register")]
         public async Task<object> Register([FromForm]UserRegisterVM model)
@@ -27,10 +25,19 @@ namespace App.WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromForm]UserLoginVM model)
+        {
+            var token = await _accountService.LoginUserAsync(model);
+            if (token != null)
+                return Ok(new { token });
+            return BadRequest(new { message = "Username or password is incorrect or not confirm email." });
+        }
+
         [HttpGet("{id}")]
-        [Route("email/confirm")]
-        //[HttpGet("{user_id}", "{code}")]
-        //[Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        //[Route("email/confirm")]
+        //[HttpGet("{user_id}", "{code}")] 
         public async Task<IActionResult> ConfirmEmail(string id/*, string code*/)  //user_id
         {
             if (string.IsNullOrWhiteSpace(id)/* || string.IsNullOrWhiteSpace(code)*/)
@@ -46,16 +53,6 @@ namespace App.WebAPI.Controllers
             await _accountService.ConfirmEmailAsync(id/*, code*/);
             return Ok();
         }
-
-        //POST : /api/account/Login
-        [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> Login([FromForm]UserLoginVM model)
-        {
-            var token = await _accountService.LoginUserAsync(model);
-            if (token != null)
-                return Ok(new { token });
-            return BadRequest(new { message = "Username or password is incorrect or not confirm email." });
-        }
+         
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace App.WebAPI.Controllers
 {
-    [Route("api/order")]
+    [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -43,18 +43,18 @@ namespace App.WebAPI.Controllers
          
          
         [HttpGet]
-        [Route("history/admin")]
+        [Route("admin")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DetailsAsync()
+        public async Task<IActionResult> GetAllHistories()
         { 
             var order_history = (await _orderService.GetHistoryAsync(null)).ToList(); 
             return Ok(order_history);
         }
 
         [HttpGet]
-        [Route("history/user")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> DetailsUserAsync()
+        [Route("user")]
+        [Authorize]
+        public async Task<IActionResult> GetUserHistories()
         {
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList();
@@ -62,18 +62,18 @@ namespace App.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("history/date/admin")]
+        [Route("admin/date")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DetailsDateAsync(DateTime dateFrom, DateTime dateTo)
+        public async Task<IActionResult> GetAllHistoriesByDate(DateTime dateFrom, DateTime dateTo)
         {
             var order_history = (await _orderService.GetHistoryAsync(null)).ToList().Where(m=>m.DatePurchase<=dateTo && m.DatePurchase>=dateFrom);
             return Ok(order_history);
         }
 
         [HttpGet]
-        [Route("history/date/user")]
-        [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> DetailsDateUserAsync(DateTime dateFrom, DateTime dateTo)
+        [Route("user/date")]
+        [Authorize]
+        public async Task<IActionResult> GetUserHistoriesByDate(DateTime dateFrom, DateTime dateTo)
         {
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);

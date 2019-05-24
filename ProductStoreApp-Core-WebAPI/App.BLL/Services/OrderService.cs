@@ -24,8 +24,7 @@ namespace App.BLL.Services
 
         public async Task AddOrderAsync(Order newOrder)
         {
-            await _db.Orders.CreateAsync(newOrder);
-            await _db.SaveAsync();
+            await _db.Orders.CreateAsync(newOrder); 
         }
 
         public async Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string user_id)
