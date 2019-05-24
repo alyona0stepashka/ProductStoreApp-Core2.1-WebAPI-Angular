@@ -7,7 +7,7 @@ namespace App.BLL.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductShowVM>> GetProductsAsync();//
+        Task<IEnumerable<ProductShowVM>> GetAllProductsAsync();//
         Task<ProductShowVM> GetProductAsync(int id);//
         Task<ProductEditOrCreateVM> CreateProductAsync(ProductEditOrCreateVM createProduct);//
         Task<ProductEditOrCreateVM> EditProductAsync(ProductEditOrCreateVM editProduct);//

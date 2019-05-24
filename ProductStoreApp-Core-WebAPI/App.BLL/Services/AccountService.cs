@@ -46,13 +46,13 @@ namespace App.BLL.Services
         public async Task<object> RegisterUserAsync(UserRegisterVM model, string url)  
         {
             //var user = _mapper.Map<User>(model);
-            var photo_id = await _fileService.CreatePhotoAsync(model.UploadImage);
+            var photo_id = await _fileService.CreatePhotoAsync(model.UploadImage, null);
             var user = new User
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                ImageId = photo_id,
+                FileModelId = photo_id,
                 PasswordHash = model.Password
             };
             user.DateOfRegisters = DateTime.Now; 

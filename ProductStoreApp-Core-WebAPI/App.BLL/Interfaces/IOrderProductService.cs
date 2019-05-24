@@ -9,6 +9,6 @@ namespace App.BLL.Interfaces
     {
         Task AddOrderProductAsync(List<OrderProduct> orderProduct);
         Task<IEnumerable<OrderProduct>> FindOrderProductByOrdersAsync(IEnumerable<Order> order);
-        int GetOrderAmount(IEnumerable<OrderProduct> orderList);
+        decimal GetOrderAmount(IEnumerable<OrderProduct> orderList);
     }
 }

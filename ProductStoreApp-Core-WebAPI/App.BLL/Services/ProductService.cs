@@ -14,41 +14,51 @@ namespace App.BLL.Services
     public class ProductService : IProductService
     {
         private IUnitOfWork _db { get; set; }
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private readonly IFileService _fileService;
-        public ProductService(IUnitOfWork uow, IMapper mapper, IFileService fileService)
+        public ProductService(IUnitOfWork uow, /*IMapper mapper, */IFileService fileService)
         {
             _db = uow;
-            _mapper = mapper;
+            //_mapper = mapper;
             _fileService = fileService;
         }
 
-        public async Task<IEnumerable<ProductShowVM>> GetProductsAsync()
+        public async Task<IEnumerable<ProductShowVM>> GetAllProductsAsync()
         {
-            var db_products = (await _db.Products.GetAllAsync()).ToList(); 
-            var products = _mapper.Map<List<ProductShowVM>>(db_products);
+            var db_products = (await _db.Products.GetAllAsync()).ToList();
+            //var products = _mapper.Map<List<ProductShowVM>>(db_products);
+            var products = new List<ProductShowVM>();
+            foreach(var db_product in db_products)
+            {
+                products.Add(new ProductShowVM(db_product));
+            }
             return products;
         }
 
         public async Task<ProductShowVM> GetProductAsync(int id)
         {
             var db_product = await _db.Products.GetAsync(id);
-            var product = _mapper.Map<ProductShowVM>(db_product);
+            var product = new ProductShowVM(db_product);
             return product;
+        }
+        public async Task<Product> GetDbProductAsync(int id)
+        {
+            var db_product = await _db.Products.GetAsync(id); 
+            return db_product;
         }
 
         public async Task<ProductEditOrCreateVM> CreateProductAsync(ProductEditOrCreateVM createProduct)
         {
             try
             {
+                var product = new Product {Name=createProduct.Name, DateAdded=DateTime.Now, Description=createProduct.Description, Price=createProduct.Price }; 
+                var db_prod = await _db.Products.CreateAsync(product); 
                 foreach(var image in createProduct.UploadImages)
                 {
-                    _fileService.CreatePhotoAsync(image);
+                    await _fileService.CreatePhotoAsync(image, db_prod.Id);
                 }
-                createProduct.DateAdded = DateTime.Now;
-                var product = _mapper.Map<Product>(createProduct); 
-                var db_prod = await _db.Products.CreateAsync(product); 
-                return _mapper.Map<ProductEditOrCreateVM>(db_prod);
+                var prod = new ProductEditOrCreateVM(db_prod);
+                return prod;
             }
             catch (Exception ex)
             {
@@ -60,9 +70,26 @@ namespace App.BLL.Services
         {
             try
             {
-                var product = _mapper.Map<Product>(editProduct);
-                var db_prod = await _db.Products.UpdateAsync(product); 
-                return _mapper.Map<ProductEditOrCreateVM>(db_prod);
+                var db_prod = await GetDbProductAsync(editProduct.Id);
+                if (db_prod==null)
+                {
+                    return null;
+                }
+
+                db_prod.Name = editProduct.Name;
+                db_prod.Description = editProduct.Description;
+                db_prod.Price = editProduct.Price; 
+
+                if (editProduct.UploadImages!=null)
+                {
+                    foreach(var file in editProduct.UploadImages)
+                    {
+                        await _fileService.CreatePhotoAsync(file, editProduct.Id);
+                    }
+                }
+                await _db.Products.UpdateAsync(db_prod);
+                var retProduct = new ProductEditOrCreateVM(db_prod);
+                return retProduct;
             }
             catch (Exception ex)
             {

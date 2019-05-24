@@ -26,7 +26,7 @@ namespace App.WebAPI.Controllers
         //[Authorize(Roles = "admin, user")]
         public async Task<IActionResult> GetAll()
         {
-            var product = await _productService.GetProductsAsync();
+            var product = await _productService.GetAllProductsAsync();
             return Ok(product);
         }
          
@@ -67,11 +67,8 @@ namespace App.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newProduct = await _productService.CreateProductAsync(createProduct);
-            if (newProduct != null)
-                await _fileService.AddPhotosInProductAsync(newProduct.Id, createProduct.UploadImages);
-            BadRequest(new { message = "Error creating product" });
-            return Ok(createProduct);
+            var newProduct = await _productService.CreateProductAsync(createProduct); 
+            return Ok(newProduct);
         }
          
         [HttpPut("{id}")]

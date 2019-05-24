@@ -26,7 +26,7 @@ namespace App.BLL.ViewModels
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
-            ImageURL = user.Image.Path;
+            ImageURL = user.FileModel.Path;
         }
     }
 }

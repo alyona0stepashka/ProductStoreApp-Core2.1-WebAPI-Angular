@@ -18,6 +18,13 @@ namespace App.BLL.ViewModels
             Name = product.Name;
             Price = product.Price;
         }
+        public CartProductShowVM(OrderProduct product)
+        {
+            ProductId = product.Product.Id;
+            Name = product.Product.Name;
+            Price = product.Product.Price;
+            Amount = product.Amount;
+        }
         public CartProductShowVM(ProductShowVM product)
         {
             ProductId = product.Id;

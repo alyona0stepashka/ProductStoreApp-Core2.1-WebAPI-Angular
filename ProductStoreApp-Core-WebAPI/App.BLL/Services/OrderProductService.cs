@@ -36,7 +36,7 @@ namespace App.BLL.Services
             return list;
         }
 
-        public int GetOrderAmount(IEnumerable<OrderProduct> orderList)
+        public decimal GetOrderAmount(IEnumerable<OrderProduct> orderList)
         {
             return orderList.Sum(item => item.Amount * item.Product.Price);
         }

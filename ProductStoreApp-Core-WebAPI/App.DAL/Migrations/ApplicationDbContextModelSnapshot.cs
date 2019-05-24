@@ -44,15 +44,15 @@ namespace App.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdProduct");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("Path");
 
+                    b.Property<int?>("ProductId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProduct");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("FileModels");
                 });
@@ -146,7 +146,7 @@ namespace App.DAL.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("Price");
+                    b.Property<decimal>("Price");
 
                     b.HasKey("Id");
 
@@ -170,9 +170,9 @@ namespace App.DAL.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<int>("FileModelId");
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
@@ -200,6 +200,8 @@ namespace App.DAL.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileModelId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -330,8 +332,7 @@ namespace App.DAL.Migrations
                 {
                     b.HasOne("App.Models.Product", "Product")
                         .WithMany("FileModels")
-                        .HasForeignKey("IdProduct")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("App.Models.Order", b =>
@@ -351,6 +352,14 @@ namespace App.DAL.Migrations
                     b.HasOne("App.Models.Product", "Product")
                         .WithMany("OrderProducts")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("App.Models.User", b =>
+                {
+                    b.HasOne("App.Models.FileModel", "FileModel")
+                        .WithMany()
+                        .HasForeignKey("FileModelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

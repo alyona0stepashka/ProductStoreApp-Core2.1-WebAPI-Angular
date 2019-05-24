@@ -15,9 +15,9 @@ namespace App.Models
         [DataType(DataType.Date)]
         public DateTime DateOfRegisters { get; set; }
 
-        [ForeignKey("Image")]
-        public int ImageId { get; set; }
-        public virtual FileModel Image { get; set; }
+        [ForeignKey("FileModel")]
+        public int FileModelId { get; set; }
+        public virtual FileModel FileModel { get; set; }
 
         public virtual List<Order> Orders { get; set; }
     }

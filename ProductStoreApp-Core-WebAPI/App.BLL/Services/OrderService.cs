@@ -57,26 +57,15 @@ namespace App.BLL.Services
             return await _db.Orders.FindAsync(x => x.PurchaseDate >= fromDateTime && x.PurchaseDate <= toDateTime);
         }
 
-        public byte[] SaveResultInExcel(DateTime DateFrom, DateTime DateTo)
+        public async Task<byte[]> SaveResultInExcelAsync(DateTime DateFrom, DateTime DateTo)  //???
         {
-            var orderByDate = FindOrdersByDate(fromDate, toDate).ToList();
-            var orderProductByDate = _orderProductService.FindOrderProductByOrders(orderByDate).ToList();
+            var orderByDate = (await FindOrdersByDateAsync(DateFrom, DateTo)).ToList();
             var countOrder = orderByDate.Count;
-            var orderAmount = _orderProductService.GetOrderAmount(orderProductByDate);
-
+            var row_index_begin = 1;
             SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
             var options = SaveOptions.XlsxDefault;
             var workbook = new ExcelFile();
             var worksheet = workbook.Worksheets.Add("Sheet1");
-
-            for (var i = 0; i < orderProductByDate.Count; i++)
-            {
-                var style = worksheet.Rows[i].Style;
-                style.Font.Weight = ExcelFont.BoldWeight;
-                style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-                worksheet.Columns[0].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-            }
-
             worksheet.Columns[0].SetWidth(250, LengthUnit.Pixel);
             worksheet.Columns[1].SetWidth(150, LengthUnit.Pixel);
             worksheet.Columns[2].SetWidth(150, LengthUnit.Pixel);
@@ -84,31 +73,44 @@ namespace App.BLL.Services
             worksheet.Columns[4].SetWidth(150, LengthUnit.Pixel);
             worksheet.Columns[5].SetWidth(150, LengthUnit.Pixel);
             worksheet.Columns[6].SetWidth(350, LengthUnit.Pixel);
+            worksheet.Columns[0].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
 
-            worksheet.Cells["A1"].Value = "User name";
-            worksheet.Cells["B1"].Value = "Product purchase date";
-            worksheet.Cells["C1"].Value = "The product's name";
-            worksheet.Cells["D1"].Value = "Product cost";
-            worksheet.Cells["E1"].Value = "Product description";
+            worksheet.Cells["A1"].Value = "User";
+            worksheet.Cells["B1"].Value = "DatePurchase";
+            worksheet.Cells["C1"].Value = "ProductName";
+            worksheet.Cells["D1"].Value = "ProductPrice";
+            worksheet.Cells["E1"].Value = "ProductDescription";
             worksheet.Cells["F1"].Value = "Amount";
 
-            for (var r = 1; r < orderProductByDate.Count; r++)
-            {
-                var item = orderProductByDate[r - 1];
-                worksheet.Cells[r, 0].Value = item.Order.User.UserName;
-                worksheet.Cells[r, 1].Value = item.Order.PurchaseDate;
-                worksheet.Cells[r, 2].Value = item.Product.Name;
-                worksheet.Cells[r, 3].Value = item.Product.Price;
-                worksheet.Cells[r, 4].Value = item.Product.Description;
-                worksheet.Cells[r, 5].Value = item.Amount;
-            }
-
             worksheet.Cells[1, 6].Value = $"Report of orders by date:" +
-                                          $" from {fromDate.Day}.{fromDate.Month}.{fromDate.Year}" +
-                                          $" to {toDate.Day}.{toDate.Month}.{toDate.Year}";
+                                          $" from {DateFrom.Day}.{DateFrom.Month}.{DateFrom.Year}" +
+                                          $" to {DateTo.Day}.{DateTo.Month}.{DateTo.Year}";
             worksheet.Cells[2, 6].Value = $"Number of sales for the specified period : {countOrder}";
-            worksheet.Cells[3, 6].Value = $"Amount for the specified period : {orderAmount}";
 
+            foreach (var order in orderByDate)
+            {
+                var orderTotalPrice = order.OrderProducts.Sum(m => m.Amount * m.Product.Price);
+                var productsCount = order.OrderProducts.Count;
+                for (var i = 0; i < productsCount; i++)
+                {
+                    var style = worksheet.Rows[i].Style;
+                    style.Font.Weight = ExcelFont.BoldWeight;
+                    style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
+                }
+
+                for (var r = row_index_begin; r <= productsCount; r++)
+                {
+                    var item = order.OrderProducts[r - 1];
+                    worksheet.Cells[r, 0].Value = item.Order.User.UserName;
+                    worksheet.Cells[r, 1].Value = item.Order.PurchaseDate;
+                    worksheet.Cells[r, 2].Value = item.Product.Name;
+                    worksheet.Cells[r, 3].Value = item.Product.Price;
+                    worksheet.Cells[r, 4].Value = item.Product.Description;
+                    worksheet.Cells[r, 5].Value = item.Amount;
+                    row_index_begin++;
+                }
+                worksheet.Cells[row_index_begin - 1, 6].Value = $"OrderTotalPrice : {orderTotalPrice} $";
+            }
             var file = GetBytes(workbook, options);
             return file;
         }

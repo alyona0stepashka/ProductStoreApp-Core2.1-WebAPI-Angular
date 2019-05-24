@@ -24,4 +24,3 @@ D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angu
 D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.Models\obj\Debug\netcoreapp2.1\App.Models.csproj.CopyComplete
 D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.Models\obj\Debug\netcoreapp2.1\App.Models.dll
 D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.Models\obj\Debug\netcoreapp2.1\App.Models.pdb
-D:\Study\VironIT\Apps\Core2.1-WebAPI-Angular\ProductStoreApp-Core2.1-WebAPI-Angular\ProductStoreApp-Core-WebAPI\App.Models\obj\Debug\netcoreapp2.1\App.Models.csprojAssemblyReference.cache

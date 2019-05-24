@@ -74,7 +74,7 @@ namespace App.WebAPI.Controllers
             }
 
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
-            var order = await _cartService.BuyAll(cart_products, user_id);
+            var order = await _cartService.BuyAll(HttpContext, cart_products, user_id);
             return Ok(order); 
         }
 
