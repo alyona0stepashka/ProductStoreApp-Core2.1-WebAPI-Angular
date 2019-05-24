@@ -8,10 +8,10 @@ namespace App.BLL.Interfaces
 {
     public interface IOrderService
     {
-        Task AddOrderAsync(Order newOrder);
-        Task<IEnumerable<Order>> FindOrdersAsync(string userId);
+        Task AddOrderAsync(Order newOrder);//
+        Task<IEnumerable<Order>> FindOrdersAsync(string userId);//
         Task<IEnumerable<Order>> FindOrdersByDateAsync(DateTime fromDateTime, DateTime toDateTime);
-        Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string userId);
+        Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string userId);//
         Task<byte[]> SaveResultInExcelAsync(DateTime fromDate, DateTime toDate);
     }
 }

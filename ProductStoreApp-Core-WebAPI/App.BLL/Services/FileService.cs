@@ -20,29 +20,54 @@ namespace App.BLL.Services
             _appEnvironment = appEnvironment;
         }
 
-        //public IEnumerable<FileModel> FindProductPhotos(int id)
+        //public Task<IEnumerable<FileModel>> FindProductPhotos(int product_id)
         //{
-        //    return _db.FileModels.Find(x => x.IdProduct == id);
+        //    return _db.FileModels.FindAsync(x => x.ProductId == product_id);
         //}
 
-        public async Task AddPhotosInProductAsync(int idProduct, List<IFormFile> uploads)
+        public async Task<int> CreatePhotoAsync(IFormFile photo, int? product_id)
         {
-            foreach (var uploadedFile in uploads)
+            string path;
+            if (product_id != null)
             {
-                var path = "/Photos/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-                var file = new FileModel
-                {
-                    Name = uploadedFile.FileName,
-                    Path = path,
-                    ProductId = idProduct
-                };
-                await _db.FileModels.CreateAsync(file);
+                path = "/Images/Products/" + photo.FileName;
             }
-            await _db.SaveAsync();
+            else
+            {
+                path = "/Images/Users/" + photo.FileName;
+            }
+            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+            {
+                await photo.CopyToAsync(fileStream);
+            }
+            var file = new FileModel
+            {
+                Name = photo.FileName,
+                Path = path,
+                ProductId = product_id
+            };
+            await _db.FileModels.CreateAsync(file);
+            return file.Id;
         }
+
+        //public async Task AddPhotosInProductAsync(int ProductId, List<IFormFile> uploads)
+        //{
+        //    foreach (var uploadedFile in uploads)
+        //    {
+        //        var path = "/Images/" + uploadedFile.FileName;
+        //        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+        //        {
+        //            await uploadedFile.CopyToAsync(fileStream);
+        //        }
+        //        var file = new FileModel
+        //        {
+        //            Name = uploadedFile.FileName,
+        //            Path = path,
+        //            ProductId = ProductId
+        //        };
+        //        await _db.FileModels.CreateAsync(file);
+        //    }
+        //    await _db.SaveAsync();
+        //}
     }
 }

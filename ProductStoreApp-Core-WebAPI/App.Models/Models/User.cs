@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Models
 {
@@ -14,7 +15,9 @@ namespace App.Models
         [DataType(DataType.Date)]
         public DateTime DateOfRegisters { get; set; }
 
-        public byte[] Image { get; set; }
+        [ForeignKey("Image")]
+        public int ImageId { get; set; }
+        public virtual FileModel Image { get; set; }
 
         public virtual List<Order> Orders { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using App.Models;
+using App.BLL.ViewModels;
 using Microsoft.AspNetCore.Identity; 
 
 namespace App.BLL.Interfaces

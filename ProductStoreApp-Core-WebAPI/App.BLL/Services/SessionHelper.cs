@@ -16,5 +16,9 @@ namespace App.BLL.Services
         {
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
+        public void RemoveObjectByKey(ISession session, string key)
+        {
+            session.Remove(key);
+        }
     }
 }

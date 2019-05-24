@@ -15,10 +15,12 @@ namespace App.BLL.Services
     {
         private IUnitOfWork _db { get; set; }
         private readonly IMapper _mapper;
-        public ProductService(IUnitOfWork uow, IMapper mapper)
+        private readonly IFileService _fileService;
+        public ProductService(IUnitOfWork uow, IMapper mapper, IFileService fileService)
         {
             _db = uow;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         public async Task<IEnumerable<ProductShowVM>> GetProductsAsync()
@@ -39,6 +41,10 @@ namespace App.BLL.Services
         {
             try
             {
+                foreach(var image in createProduct.UploadImages)
+                {
+                    _fileService.CreatePhotoAsync(image);
+                }
                 createProduct.DateAdded = DateTime.Now;
                 var product = _mapper.Map<Product>(createProduct); 
                 var db_prod = await _db.Products.CreateAsync(product); 

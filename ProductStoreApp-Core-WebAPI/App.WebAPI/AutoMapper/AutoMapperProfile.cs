@@ -15,7 +15,15 @@ namespace App.WebAPI.AutoMapper
             AllowNullCollections = true;
 
             CreateMap<Product, ProductEditOrCreateVM>().ReverseMap();
-            CreateMap<Product, ProductShowVM>().ReverseMap();
+               // .ForMember("Login", opt => opt.MapFrom(src => src.)));
+            
+            
+            ;
+            CreateMap<Product, ProductShowVM>()
+              //  .ForMember("", m=>m.MapFrom(e=>e.)) ImagesURL
+                .ReverseMap()
+               // .ForMember("", m => m.MapFrom(e=>e.)
+                ;
             CreateMap<User, UserRegisterVM>().ReverseMap();
             CreateMap<User, UserEditOrShowVM>().ReverseMap();
             CreateMap<User, UserLoginVM>().ReverseMap();

@@ -6,5 +6,6 @@ namespace App.BLL.Interfaces
     {
         T GetObjectFromJson<T>(ISession session, string key);
         void SetObjectAsJson(ISession session, string key, object value);
+        void RemoveObjectByKey(ISession session, string key);
     }
 }

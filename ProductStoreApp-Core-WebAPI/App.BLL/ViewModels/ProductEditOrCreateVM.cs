@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,9 +20,16 @@ namespace App.BLL.ViewModels
         [Required]
         public decimal Price { get; set; }
 
-        public DateTime DateAdded { get; set; }
+        //public DateTime DateAdded { get; set; }
 
-        public List<IFormFile> UploadImages { get; set; }
-        public List<string> ImagesURL { get; set; }  //for create = null
+        public List<IFormFile> UploadImages { get; set; }  //for edit = null 
+
+        public ProductEditOrCreateVM(Product product)
+        {
+            Id = product.Id;
+            Name = product.Name;
+            Description = product.Description;
+            Price = product.Price;
+        }
     }
 }

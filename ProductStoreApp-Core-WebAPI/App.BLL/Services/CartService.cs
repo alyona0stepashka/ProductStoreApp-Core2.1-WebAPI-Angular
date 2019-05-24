@@ -17,28 +17,27 @@ namespace App.BLL.Services
         private readonly IOrderService _orderService;
         private readonly IProductService _productService;
         private readonly ISessionHelper _sessionHelper;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private IUnitOfWork _db { get; set; }
         public CartService(IUnitOfWork uow,
             IOrderProductService orderProductService,
             IProductService productService,
             ISessionHelper sessionHelper,
-            IOrderService orderService,
-            IMapper mapper)
+            //IMapper mapper,
+            IOrderService orderService)
         {
             _db = uow;
             _orderProductService = orderProductService;
             _productService = productService;
             _sessionHelper = sessionHelper;
             _orderService = orderService;
-            _mapper = mapper;
+           // _mapper = mapper;
         }
 
         public async Task<List<CartProductShowVM>> AddProduct(HttpContext context, int id)
         {
             var product = await _productService.GetProductAsync(id);
-            var cart_products = _sessionHelper
-                .GetObjectFromJson<List<CartProductShowVM>>(context.Session, "cart");
+            var cart_products = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(context.Session, "cart");
             if (cart_products != null)
             {
                 var index = IsAlreadyExist(id, context);
@@ -48,7 +47,7 @@ namespace App.BLL.Services
                 }
                 else
                 {
-                    cart_products.Add(new CartProductShowVM { ProductID = product.Id, Amount = 1, Name = product.Name, Price = product.Price });
+                    cart_products.Add(new CartProductShowVM(product) { Amount=1});
                     _sessionHelper.SetObjectAsJson(context.Session, "cart", cart_products);
                 }
                 return cart_products;
@@ -57,7 +56,7 @@ namespace App.BLL.Services
             {
                 var cart = new List<CartProductShowVM>
                 {
-                    new CartProductShowVM { ProductID = product.Id, Amount = 1, Name = product.Name, Price = product.Price }
+                    new CartProductShowVM (product) { Amount=1}
                 };
                 _sessionHelper.SetObjectAsJson(context.Session, "cart", cart);
                 return cart;
@@ -68,12 +67,16 @@ namespace App.BLL.Services
         {
             var cart_products = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(context.Session, "cart");
             var index = IsAlreadyExist(id, context);
+            if (index != -1)
+            {
             cart_products.RemoveAt(index);
             _sessionHelper.SetObjectAsJson(context.Session, "cart", cart_products);
+                
+            } 
             return cart_products;
         }
 
-        public async Task<OrderHistoryVM> BuyAll(List<CartProductShowVM> cart_products, string user_id)
+        public async Task<OrderHistoryVM> BuyAll(HttpContext context, List<CartProductShowVM> cart_products, string user_id)
         {
             var orderProducts = new List<OrderProduct>();
             var order = new Order
@@ -86,13 +89,15 @@ namespace App.BLL.Services
             {
                 orderProducts.Add(new OrderProduct
                 {
-                    ProductId = item.ProductID,
+                    ProductId = item.ProductId,
                     OrderId = order.Id,
                     Amount = item.Amount
                 });
             }
+            _sessionHelper.RemoveObjectByKey(context.Session,"cart");
             await _orderProductService.AddOrderProductAsync(orderProducts);
-            return _mapper.Map<OrderHistoryVM>(order);
+            var retOrder = new OrderHistoryVM(order);
+            return retOrder;
         }
 
 
@@ -106,7 +111,6 @@ namespace App.BLL.Services
                     return i;
                 }
             }
-
             return -1;
         }
 

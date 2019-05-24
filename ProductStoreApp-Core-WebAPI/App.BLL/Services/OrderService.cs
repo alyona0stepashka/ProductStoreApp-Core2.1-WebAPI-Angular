@@ -27,7 +27,7 @@ namespace App.BLL.Services
             await _db.Orders.CreateAsync(newOrder); 
         }
 
-        public async Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string user_id)
+        public async Task<IEnumerable<OrderHistoryVM>> GetHistoryAsync(string user_id)  //if =null adminOrders
         {
             var order_history = new List<OrderHistoryVM>();
             var orders = new List<Order>();
@@ -41,13 +41,7 @@ namespace App.BLL.Services
             }            
             foreach (var order in orders)
             {
-                var history_item = new OrderHistoryVM {Id=order.Id, DatePurchase=order.PurchaseDate, ProductIds=new List<int>(), ProductNames=new List<string>(), ProductPrices=new List<decimal>() };
-                foreach (var product in order.OrderProducts)
-                {
-                    history_item.ProductIds.Add(product.ProductId);
-                    history_item.ProductNames.Add(product.Product.Name);
-                    history_item.ProductPrices.Add(product.Product.Price);
-                }
+                var history_item = new OrderHistoryVM(order);
                 order_history.Add(history_item);
             }
             return  order_history;
@@ -63,10 +57,10 @@ namespace App.BLL.Services
             return await _db.Orders.FindAsync(x => x.PurchaseDate >= fromDateTime && x.PurchaseDate <= toDateTime);
         }
 
-        public async Task<byte[]> SaveResultInExcelAsync(DateTime fromDate, DateTime toDate)
+        public byte[] SaveResultInExcel(DateTime DateFrom, DateTime DateTo)
         {
-            var orderByDate = (await FindOrdersByDateAsync(fromDate, toDate)).ToList();
-            var orderProductByDate = (await _orderProductService.FindOrderProductByOrdersAsync(orderByDate)).ToList();
+            var orderByDate = FindOrdersByDate(fromDate, toDate).ToList();
+            var orderProductByDate = _orderProductService.FindOrderProductByOrders(orderByDate).ToList();
             var countOrder = orderByDate.Count;
             var orderAmount = _orderProductService.GetOrderAmount(orderProductByDate);
 
@@ -109,7 +103,9 @@ namespace App.BLL.Services
                 worksheet.Cells[r, 5].Value = item.Amount;
             }
 
-            worksheet.Cells[1, 6].Value = $"Report of orders by date: from {fromDate.Day}.{fromDate.Month}.{fromDate.Year} to {toDate.Day}.{toDate.Month}.{toDate.Year}";
+            worksheet.Cells[1, 6].Value = $"Report of orders by date:" +
+                                          $" from {fromDate.Day}.{fromDate.Month}.{fromDate.Year}" +
+                                          $" to {toDate.Day}.{toDate.Month}.{toDate.Year}";
             worksheet.Cells[2, 6].Value = $"Number of sales for the specified period : {countOrder}";
             worksheet.Cells[3, 6].Value = $"Amount for the specified period : {orderAmount}";
 

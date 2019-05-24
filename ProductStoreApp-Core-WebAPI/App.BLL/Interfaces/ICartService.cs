@@ -9,8 +9,8 @@ namespace App.BLL.Interfaces
 {
     public interface ICartService 
     {
-        Task<List<CartProductShowVM>> AddProduct(HttpContext context, int id);
-        List<CartProductShowVM> RemoveProduct(HttpContext context, int id);
-        Task<OrderHistoryVM> BuyAll(List<CartProductShowVM> cart_products, string user_id); 
+        Task<List<CartProductShowVM>> AddProduct(HttpContext context, int id);//
+        List<CartProductShowVM> RemoveProduct(HttpContext context, int id);//
+        Task<OrderHistoryVM> BuyAll(HttpContext context, List<CartProductShowVM> cart_products, string user_id); //
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -20,5 +21,18 @@ namespace App.BLL.ViewModels
         //[DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Required]
+        public IFormFile UploadImage { get; set; }
+
     }
 }
+
+/*
+            export class UserRegister {
+                FirstName: string,
+                LastName: string,
+                Email: string,
+                Password: string,
+                Image: any
+            } 
+            */
