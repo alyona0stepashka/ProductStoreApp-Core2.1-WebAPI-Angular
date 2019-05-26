@@ -73,8 +73,8 @@ namespace App.WebAPI
 
             services.AddMvc(options =>
             {
-                options.Filters.Add(typeof(LogActionFilter));
-                options.Filters.Add(typeof(LogErrorFilter));
+                //options.Filters.Add(typeof(LogActionFilter));
+                //options.Filters.Add(typeof(LogErrorFilter));
             }).AddJsonOptions(options =>
             {
                 var resolver = options.SerializerSettings.ContractResolver;

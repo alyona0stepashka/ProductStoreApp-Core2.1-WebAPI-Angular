@@ -28,6 +28,10 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> GetAllHistories()
         {
             var order_history = (await _orderService.GetHistoryAsync(null)).ToList();
+            if (order_history==null)
+            {
+                return NotFound(new { message = "Orders not found." });
+            }
             return Ok(order_history);
         }
 
@@ -38,6 +42,10 @@ namespace App.WebAPI.Controllers
         {
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList();
+            if (order_history == null)
+            {
+                return NotFound(new { message = "Orders not found by user." });
+            }
             return Ok(order_history);
         }
 
@@ -46,8 +54,13 @@ namespace App.WebAPI.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllHistoriesByDate(DateTime dateFrom, DateTime dateTo)
         {
-            var order_history = (await _orderService.GetHistoryAsync(null)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
-            return Ok(order_history);
+            var order_history = (await _orderService.GetHistoryAsync(null)).ToList();
+            if (order_history == null)
+            {
+                return NotFound(new { message = "Orders not found by dateRange." });
+            }
+            var ret_order_history = order_history.Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
+            return Ok(ret_order_history);
         }
 
         [HttpGet]
@@ -56,8 +69,13 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> GetUserHistoriesByDate(DateTime dateFrom, DateTime dateTo)
         {
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
-            var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
-            return Ok(order_history);
+            var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList();
+            if (order_history == null)
+            {
+                return NotFound(new { message = "Orders not found by dateRange." });
+            }
+            var ret_order_history = order_history.Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
+            return Ok(ret_order_history);
         }
 
 

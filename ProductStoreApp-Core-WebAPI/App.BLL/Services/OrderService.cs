@@ -38,7 +38,11 @@ namespace App.BLL.Services
             else
             {
                 orders = (await FindOrdersAsync(user_id)).ToList();
-            }            
+            }
+            if (orders == null)
+            {
+                return null;
+            }
             foreach (var order in orders)
             {
                 var history_item = new OrderHistoryVM(order);

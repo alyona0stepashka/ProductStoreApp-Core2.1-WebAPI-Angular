@@ -16,26 +16,36 @@ namespace App.BLL.Services
     {
         private IUnitOfWork _db { get; set; }
         private readonly IAccountService _accountService;
-        private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
+        //private readonly IMapper _mapper;
         public UserService(IUnitOfWork uow,
+            //IMapper mapper,
             IAccountService accountService,
-            IMapper mapper)
+            IFileService fileService)
         {
             _db = uow;
             _accountService = accountService;
-            _mapper = mapper;
+            _fileService = fileService;
+            //_mapper = mapper;
         }
 
         public async Task<UserEditOrShowVM> EditUserAsync(UserEditOrShowVM editUser)
         {
-            var user = await _accountService.GetUserAsync(editUser.Id);
-
+            var user = await _accountService.GetDbUserAsync(editUser.Id);
+            var file_id = user.FileModelId;
+            if (user == null) { return null; }
             try
-            {
-                var db_user = _mapper.Map<User>(editUser);
-                await _db.Users.UpdateAsync(db_user);
-                await _db.SaveAsync();
-                return user;
+            {  
+                user.FirstName = editUser.FirstName;
+                user.LastName = editUser.LastName;
+                if (editUser.UploadImage!=null)
+                {
+                    file_id = await _fileService.CreatePhotoAsync(editUser.UploadImage, null);
+                }
+                user.FileModelId = file_id;
+                await _db.Users.UpdateAsync(user);
+                var new_user = new UserEditOrShowVM(user);
+                return new_user;
             }
             catch (Exception ex)
             {

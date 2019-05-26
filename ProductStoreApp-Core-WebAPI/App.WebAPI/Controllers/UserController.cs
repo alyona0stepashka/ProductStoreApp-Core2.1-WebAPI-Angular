@@ -30,6 +30,10 @@ namespace App.WebAPI.Controllers
         {
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             var user = await _accountService.GetUserAsync(user_id);
+            if (user==null)
+            {
+                return NotFound(new { message = "User not found by id." });
+            }
             return Ok(user);
         }
 
@@ -38,12 +42,16 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> EditUserInformation([FromBody] UserEditOrShowVM editUser)
         {
             if (editUser == null)
-                return BadRequest();
+                return BadRequest(new { message = "editUser param is null." });
 
-            var user_id = User.Claims.First(x => x.Type == "UserId").Type;
+            var user_id = User.Claims.First(x => x.Type == "UserID").Type;
             editUser.Id = user_id;
 
             var user = await _userService.EditUserAsync(editUser);
+            if (user==null)
+            {
+                return NotFound(new { message = "User not found by id." });
+            }
             return Ok(user);
         }
     }

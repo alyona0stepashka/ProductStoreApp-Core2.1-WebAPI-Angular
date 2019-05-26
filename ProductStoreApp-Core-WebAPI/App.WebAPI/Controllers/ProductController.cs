@@ -35,7 +35,7 @@ namespace App.WebAPI.Controllers
         {
             var product = await _productService.GetProductAsync(id);
             if (product == null)
-                return NotFound();
+                return NotFound(new { message = "Product not found by id." });
             return Ok(product);
         }
 
@@ -44,7 +44,7 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] ProductEditOrCreateVM createProduct)
         {
             if (createProduct == null)
-                return BadRequest();
+                return BadRequest(new { message = "createProduct param is null." });
 
             if (createProduct.UploadImages != null)
             {
@@ -78,23 +78,23 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> EditProduct(int id, [FromBody] ProductEditOrCreateVM editProduct)
         {
             if (editProduct == null)
-                return BadRequest();
+                return BadRequest(new { message = "editProduct param is null." });
 
             var db_product = await _productService.GetProductAsync(id);
             if (db_product == null)
-                return NotFound();
+                return NotFound(new { message = "Product not found by id." });
 
             var product = await _productService.EditProductAsync(editProduct);
             return Ok(product);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _productService.GetProductAsync(id);
             if (product == null)
-                return NotFound();
+                return NotFound(new { message = "Product not found by id." });
             await _productService.DeleteProductAsync(id);
             return Ok(product);
         }

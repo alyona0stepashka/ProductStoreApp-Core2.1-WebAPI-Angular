@@ -29,11 +29,12 @@ namespace App.WebAPI.Controllers
         [Authorize]
         public IActionResult GetCart()
         {
-            var cart = _sessionHelper
-                .GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
-            if (cart != null)
-                return Ok(cart);
-            return BadRequest(new { message = "Sorry, your shopping cart is empty." });
+            var cart = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
+            if (cart == null)
+            { 
+                return BadRequest(new { message = "Shopping cart is empty." });
+            }
+            return Ok(cart);
         }
 
         [HttpGet("{id}")]
@@ -41,6 +42,10 @@ namespace App.WebAPI.Controllers
         public async Task<IActionResult> AddProduct(int id)
         {
             var cart = await _cartService.AddProduct(HttpContext, id);
+            if (cart == null)
+            {
+                return NotFound(new { message = "Product not found by id." });
+            }
             return Ok(cart);
         }
 
@@ -52,7 +57,7 @@ namespace App.WebAPI.Controllers
             var cart_products = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(HttpContext.Session, "cart");
             if (cart_products == null)
             {
-                return BadRequest(new { message = "Sorry, your shopping cart is empty!" });
+                return BadRequest(new { message = "Shopping cart is empty!" });
             }
 
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
@@ -65,6 +70,10 @@ namespace App.WebAPI.Controllers
         public IActionResult RemoveProduct(int id)
         {
             var cart = _cartService.RemoveProduct(HttpContext, id);
+            if (cart == null)
+            {
+                return NotFound(new { message = "Product not found by id." });
+            }
             return Ok(cart);
         }
 

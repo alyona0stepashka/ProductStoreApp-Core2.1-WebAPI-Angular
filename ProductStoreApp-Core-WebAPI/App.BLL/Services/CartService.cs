@@ -37,6 +37,10 @@ namespace App.BLL.Services
         public async Task<List<CartProductShowVM>> AddProduct(HttpContext context, int id)
         {
             var product = await _productService.GetProductAsync(id);
+            if (product == null)
+            {
+                return null;
+            }
             var cart_products = _sessionHelper.GetObjectFromJson<List<CartProductShowVM>>(context.Session, "cart");
             if (cart_products != null)
             {

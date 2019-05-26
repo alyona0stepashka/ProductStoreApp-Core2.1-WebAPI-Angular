@@ -38,6 +38,10 @@ namespace App.BLL.Services
         public async Task<ProductShowVM> GetProductAsync(int id)
         {
             var db_product = await _db.Products.GetAsync(id);
+            if (db_product==null)
+            {
+                return null;
+            }
             var product = new ProductShowVM(db_product);
             return product;
         }

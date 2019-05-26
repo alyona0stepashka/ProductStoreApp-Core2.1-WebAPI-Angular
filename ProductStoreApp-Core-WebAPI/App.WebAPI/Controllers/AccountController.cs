@@ -26,7 +26,7 @@ namespace App.WebAPI.Controllers
             var url = HttpContext.Request.Host.ToString();
             var result = await _accountService.RegisterUserAsync(model, url);
             if (result == null)
-                return BadRequest(new { message = "Error" });
+                return BadRequest(new { message = "Error by register." });
             return Ok(result);
         }
 
@@ -52,7 +52,7 @@ namespace App.WebAPI.Controllers
             var user = await _accountService.GetUserAsync(user_id);
             if (user == null)
             {
-                return BadRequest("Error");
+                return BadRequest("Error by confirm email.");
             }
             await _accountService.ConfirmEmailAsync(user_id, code);
             return Ok();

@@ -40,7 +40,7 @@ namespace App.BLL.ViewModels
  
     export class UserEditOrShow
     {
-        Id: number,
+        Id: string,
         FirstName: string,
         LastName: string,
         Email: string,

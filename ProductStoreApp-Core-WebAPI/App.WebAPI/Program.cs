@@ -39,11 +39,11 @@ namespace App.WebAPI
                     var uow = services.GetRequiredService<IUnitOfWork>();
                     ApplicationDbInitializer.InitializeAsync(userManager, rolesManager, uow).Wait();
 
-                    var log4NetConfig = new XmlDocument();
-                    log4NetConfig.Load(File.OpenRead("log4net.config"));
-                    var repo = LogManager.CreateRepository(Assembly.GetEntryAssembly(),
-                        typeof(log4net.Repository.Hierarchy.Hierarchy));
-                    XmlConfigurator.Configure(repo, log4NetConfig["log4net"]);
+                    //var log4NetConfig = new XmlDocument();
+                    //log4NetConfig.Load(File.OpenRead("log4net.config"));
+                    //var repo = LogManager.CreateRepository(Assembly.GetEntryAssembly(),
+                    //    typeof(log4net.Repository.Hierarchy.Hierarchy));
+                    //XmlConfigurator.Configure(repo, log4NetConfig["log4net"]);
                 }
                 catch (Exception ex)
                 {

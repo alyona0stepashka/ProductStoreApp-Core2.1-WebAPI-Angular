@@ -127,7 +127,11 @@ namespace App.BLL.Services
 
         public async Task<UserEditOrShowVM> GetUserAsync(string user_id)
         {
-            var db_user = await _userManager.FindByIdAsync(user_id);
+            var db_user = await GetDbUserAsync(user_id);
+            if (db_user==null)
+            {
+                return null;
+            }
             //var user = _mapper.Map<UserEditOrShowVM>(db_user);
             var user = new UserEditOrShowVM(db_user);
             return user;
@@ -135,7 +139,11 @@ namespace App.BLL.Services
 
         public async Task<User> GetDbUserAsync(string user_id)
         {
-            var db_user = await _userManager.FindByIdAsync(user_id); 
+            var db_user = await _userManager.FindByIdAsync(user_id);
+            if (db_user == null)
+            {
+                return null;
+            }
             return db_user;
         }
 
