@@ -44,7 +44,7 @@ namespace App.WebAPI.Controllers
             if (editUser == null)
                 return BadRequest(new { message = "editUser param is null." });
 
-            var user_id = User.Claims.First(x => x.Type == "UserID").Type;
+            var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             editUser.Id = user_id;
 
             var user = await _userService.EditUserAsync(editUser);
