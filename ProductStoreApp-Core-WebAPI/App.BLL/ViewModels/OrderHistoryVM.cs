@@ -7,13 +7,13 @@ namespace App.BLL.ViewModels
 {
     public class OrderHistoryVM
     {
-        public int Id { get; set; }
-        //public List<int> ProductIds { get; set; }
-        //public List<string> ProductNames { get; set; }
-        //public List<decimal> ProductPrices { get; set; }
+        public int Id { get; set; } 
         public List<CartProductShowVM> Products { get; set; }
         public DateTime DatePurchase { get; set; }
+        public OrderHistoryVM()
+        {
 
+        }
         public OrderHistoryVM(Order order)
         {
             Id = order.Id;
@@ -26,3 +26,13 @@ namespace App.BLL.ViewModels
         }
     }
 }
+/*
+ 
+    export class OrderHistoryShow
+    {
+        Id: number,
+        Products: CartProduct[],
+        DatePurchase: null 
+    }
+
+*/

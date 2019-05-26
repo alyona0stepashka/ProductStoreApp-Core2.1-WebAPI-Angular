@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
+using App.BLL.Interfaces;
+using App.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using App.BLL.Interfaces;
-using App.BLL.ViewModels;
 
 namespace App.WebAPI.Controllers
 {
@@ -23,8 +23,8 @@ namespace App.WebAPI.Controllers
             _accountService = accountService;
             _userService = userService;
         }
-         
-        [HttpGet] 
+
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetUserProfile()
         {
@@ -32,10 +32,10 @@ namespace App.WebAPI.Controllers
             var user = await _accountService.GetUserAsync(user_id);
             return Ok(user);
         }
-         
+
         [HttpPut]
-        [Authorize] 
-        public async Task<IActionResult> EditUserInformation([FromForm] UserEditOrShowVM editUser)
+        [Authorize]
+        public async Task<IActionResult> EditUserInformation([FromBody] UserEditOrShowVM editUser)
         {
             if (editUser == null)
                 return BadRequest();
@@ -45,6 +45,6 @@ namespace App.WebAPI.Controllers
 
             var user = await _userService.EditUserAsync(editUser);
             return Ok(user);
-        } 
+        }
     }
 }

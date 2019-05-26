@@ -31,8 +31,8 @@ namespace App.BLL.Services
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.mail.ru", 587, false);
-                await client.AuthenticateAsync("messendertest@mail.ru", "15975310895623Vladimir!");
+                await client.ConnectAsync("smtp.yandex.ru", 587, true);
+                await client.AuthenticateAsync("a.pakholko.vironit@vironit.ru", "25032019pas");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);

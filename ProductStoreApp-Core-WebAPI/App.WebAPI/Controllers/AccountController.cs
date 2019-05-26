@@ -1,11 +1,16 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using App.BLL.Interfaces; 
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using App.BLL.Interfaces;
 using App.BLL.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.WebAPI.Controllers
 {
     [Route("api/account")]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -13,11 +18,11 @@ namespace App.WebAPI.Controllers
         {
             _accountService = accountService;
         }
-         
+
         [HttpPost]
         [Route("register")]
-        public async Task<object> Register([FromForm]UserRegisterVM model)
-        {            
+        public async Task<object> Register([FromBody]UserRegisterVM model)
+        {
             var url = HttpContext.Request.Host.ToString();
             var result = await _accountService.RegisterUserAsync(model, url);
             if (result == null)
@@ -27,7 +32,7 @@ namespace App.WebAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromForm]UserLoginVM model)
+        public async Task<IActionResult> Login([FromBody]UserLoginVM model)
         {
             var token = await _accountService.LoginUserAsync(model);
             if (token != null)
@@ -36,7 +41,7 @@ namespace App.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("email")] 
+        [Route("email")]
         public async Task<IActionResult> ConfirmEmail(string user_id, string code)  //user_id
         {
             if (string.IsNullOrWhiteSpace(user_id) || string.IsNullOrWhiteSpace(code))
@@ -52,6 +57,6 @@ namespace App.WebAPI.Controllers
             await _accountService.ConfirmEmailAsync(user_id, code);
             return Ok();
         }
-         
+
     }
 }

@@ -21,8 +21,12 @@ namespace App.BLL.ViewModels
         //[DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        //[Required]
         public IFormFile UploadImage { get; set; }
+        public UserRegisterVM()
+        {
+
+        }
 
     }
 }

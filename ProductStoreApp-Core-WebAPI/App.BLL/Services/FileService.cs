@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using App.BLL.Interfaces;
 using App.DAL.Interfaces;
 using App.Models;
+using System.Linq;
 
 namespace App.BLL.Services
 {
@@ -27,27 +28,53 @@ namespace App.BLL.Services
 
         public async Task<int> CreatePhotoAsync(IFormFile photo, int? product_id)
         {
-            string path;
-            if (product_id != null)
+            var id = 0;
+            if (photo != null)
             {
-                path = "/Images/Products/" + photo.FileName;
+                string path;
+                if (product_id != null)
+                {
+                    path = "/Images/Products/" + photo.FileName;
+                }
+                else
+                {
+                    path = "/Images/Users/" + photo.FileName;
+                }
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await photo.CopyToAsync(fileStream);
+                }
+                var file = new FileModel
+                {
+                    Name = photo.FileName,
+                    Path = path,
+                    ProductId = product_id
+                };
+                await _db.FileModels.CreateAsync(file);
+                id = file.Id;
             }
             else
             {
-                path = "/Images/Users/" + photo.FileName;
+                if (product_id != null)
+                {
+                    await _db.FileModels.CreateAsync(new FileModel
+                    {
+                        Name = "no-image.jpg",
+                        Path = "/Images/App/no-image.jpg",
+                        ProductId = product_id
+                    });
+                }
+                else
+                {
+                    await _db.FileModels.CreateAsync(new FileModel
+                    {
+                        Name = "no-image.jpg",
+                        Path = "/Images/App/no-image.jpg"
+                    });
+                }
+                id = (await _db.FileModels.FindAsync(m => m.Name == "no-image.jpg")).LastOrDefault().Id;
             }
-            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-            {
-                await photo.CopyToAsync(fileStream);
-            }
-            var file = new FileModel
-            {
-                Name = photo.FileName,
-                Path = path,
-                ProductId = product_id
-            };
-            await _db.FileModels.CreateAsync(file);
-            return file.Id;
+            return id;
         }
 
         //public async Task AddPhotosInProductAsync(int ProductId, List<IFormFile> uploads)

@@ -13,8 +13,8 @@ namespace App.DAL.Data
 
         public DbSet<FileModel> FileModels { get; set; }
 
-        public DbSet<EventLog> EventLogs { get; set; }
-        public DbSet<LogInfo> LogInfos { get; set; }
+        //public DbSet<EventLog> EventLogs { get; set; }
+        //public DbSet<LogInfo> LogInfos { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

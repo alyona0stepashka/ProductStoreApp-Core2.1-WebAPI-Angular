@@ -53,7 +53,8 @@ namespace App.BLL.Services
                 LastName = model.LastName,
                 Email = model.Email,
                 FileModelId = photo_id,
-                PasswordHash = model.Password
+                PasswordHash = model.Password,
+                UserName = model.Email
             };
             user.DateOfRegisters = DateTime.Now; 
             try
@@ -67,8 +68,8 @@ namespace App.BLL.Services
                     .AppendFormat("/api/account/email")
                     .AppendFormat($"?user_id={user.Id}&code={encode}");
 
-                await _emailService.SendEmailAsync(user.Email, "Confirm your account",
-                    $"Confirm the registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
+               // await _emailService.SendEmailAsync(user.Email, "Confirm your account",
+               //     $"Confirm the registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
                 return result;
             }
             catch (Exception ex)

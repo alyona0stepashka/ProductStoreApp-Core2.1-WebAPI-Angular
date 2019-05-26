@@ -9,7 +9,7 @@ namespace App.BLL.ViewModels
 {
     public class ProductEditOrCreateVM
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -24,12 +24,31 @@ namespace App.BLL.ViewModels
 
         public List<IFormFile> UploadImages { get; set; }  //for edit = null 
 
+        public ProductEditOrCreateVM()
+        {
+
+        }
         public ProductEditOrCreateVM(Product product)
         {
-            Id = product.Id;
+            if (product.Id != null)
+            {
+                Id = product.Id;
+            }
             Name = product.Name;
             Description = product.Description;
             Price = product.Price;
         }
     }
 }
+/*
+ 
+    export class ProductEditOrCreate
+    {
+        Id: number,
+        Name: string,
+        Price: number,
+        Description: string,
+        UploadImages: any[]
+    }
+
+*/

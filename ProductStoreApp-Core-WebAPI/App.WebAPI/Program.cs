@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using App.DAL.Data;
 using App.DAL.Initializer;
+using App.DAL.Interfaces;
+using App.DAL.Repositories;
 using App.Models;
 using log4net;
 using log4net.Config;
@@ -33,8 +35,9 @@ namespace App.WebAPI
                 {
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    ApplicationDbInitializer.InitializeAsync(userManager, rolesManager).Wait();
+                    //var context = services.GetRequiredService<ApplicationDbContext>();
+                    var uow = services.GetRequiredService<IUnitOfWork>();
+                    ApplicationDbInitializer.InitializeAsync(userManager, rolesManager, uow).Wait();
 
                     var log4NetConfig = new XmlDocument();
                     log4NetConfig.Load(File.OpenRead("log4net.config"));

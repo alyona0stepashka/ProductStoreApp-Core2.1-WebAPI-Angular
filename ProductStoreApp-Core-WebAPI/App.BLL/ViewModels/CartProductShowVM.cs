@@ -11,7 +11,10 @@ namespace App.BLL.ViewModels
         public int Amount { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public CartProductShowVM()
+        {
 
+        }
         public CartProductShowVM(Product product)
         {
             ProductId = product.Id;
@@ -34,3 +37,14 @@ namespace App.BLL.ViewModels
 
     }
 }
+/*
+ 
+    export class CartProductShow
+    {
+        ProductId: number,
+        Name: string,
+        Price: number,
+        Amount: number
+    }
+
+*/

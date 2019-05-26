@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using App.BLL.Infrastructure;
 using App.BLL.Interfaces;
 using App.BLL.ViewModels;
-using App.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.WebAPI.Controllers
 {
@@ -13,15 +15,12 @@ namespace App.WebAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
-        private readonly IFileService _fileService;
-        public ProductController(IProductService productService,
-            IFileService fileService)
+        private readonly IProductService _productService; 
+        public ProductController(IProductService productService )
         {
-            _productService = productService;
-            _fileService = fileService;
+            _productService = productService; 
         }
-         
+
         [HttpGet]
         //[Authorize(Roles = "admin, user")]
         public async Task<IActionResult> GetAll()
@@ -29,7 +28,7 @@ namespace App.WebAPI.Controllers
             var product = await _productService.GetAllProductsAsync();
             return Ok(product);
         }
-         
+
         [HttpGet("{id}")]
         //[Authorize(Roles = "admin, user")]
         public async Task<IActionResult> GetProduct(int id)
@@ -39,41 +38,44 @@ namespace App.WebAPI.Controllers
                 return NotFound();
             return Ok(product);
         }
-         
-        [HttpPost] 
+
+        [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateProduct([FromForm] ProductEditOrCreateVM createProduct)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductEditOrCreateVM createProduct)
         {
             if (createProduct == null)
                 return BadRequest();
 
-            const int lengthMax = 2097152;
-            const string correctType = "image/jpeg";
-            foreach (var uploadedFile in createProduct.UploadImages)
+            if (createProduct.UploadImages != null)
             {
-                var type = uploadedFile.ContentType;
-                var length = uploadedFile.Length;
-                if (type != correctType)
+                const int lengthMax = 2097152;
+                const string correctType = "image/jpeg";
+                foreach (var uploadedFile in createProduct.UploadImages)
                 {
-                    ModelState.AddModelError("Uploads", "Error, allowed image resolution jpg / jpeg");
+                    var type = uploadedFile.ContentType;
+                    var length = uploadedFile.Length;
+                    if (type != correctType)
+                    {
+                        ModelState.AddModelError("Uploads", "Error, allowed image resolution jpg / jpeg");
+                        return BadRequest(ModelState);
+                    }
+
+                    if (length < lengthMax) continue;
+                    ModelState.AddModelError("Uploads", "Error, permissible image size should not exceed 2 MB");
                     return BadRequest(ModelState);
                 }
-
-                if (length < lengthMax) continue;
-                ModelState.AddModelError("Uploads", "Error, permissible image size should not exceed 2 MB");
-                return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newProduct = await _productService.CreateProductAsync(createProduct); 
+            var newProduct = await _productService.CreateProductAsync(createProduct);
             return Ok(newProduct);
         }
-         
+
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditProduct(int id, [FromForm] ProductEditOrCreateVM editProduct)
+        public async Task<IActionResult> EditProduct(int id, [FromBody] ProductEditOrCreateVM editProduct)
         {
             if (editProduct == null)
                 return BadRequest();
@@ -85,7 +87,7 @@ namespace App.WebAPI.Controllers
             var product = await _productService.EditProductAsync(editProduct);
             return Ok(product);
         }
-        
+
         [HttpDelete]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProduct(int id)

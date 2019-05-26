@@ -18,11 +18,17 @@ namespace App.BLL.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; } //for edit = null
         public string ImageURL { get; set; } //for edit = null 
-        public IFormFile UploadImage { get; set; }
+        public IFormFile UploadImage { get; set; } //for show = null
+        public UserEditOrShowVM()
+        {
 
+        }
         public UserEditOrShowVM(User user)
         {
-            Id = user.Id;
+            if (user.Id != null)
+            {
+                Id = user.Id;
+            } 
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
@@ -30,3 +36,16 @@ namespace App.BLL.ViewModels
         }
     }
 }
+/*
+ 
+    export class UserEditOrShow
+    {
+        Id: number,
+        FirstName: string,
+        LastName: string,
+        Email: string,
+        ImageURL: string, 
+        UploadImage: any
+    }
+
+*/

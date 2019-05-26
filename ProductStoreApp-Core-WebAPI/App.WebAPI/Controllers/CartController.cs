@@ -1,47 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using App.BLL.Infrastructure;
+using System.Threading.Tasks;
 using App.BLL.Interfaces;
 using App.BLL.ViewModels;
-using App.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.WebAPI.Controllers
 {
     [Route("api/cart")]
     [ApiController]
     public class CartController : ControllerBase
-    {
-        private readonly IAccountService _accountService;
-        private readonly IOrderService _orderService;
-        private readonly ISessionHelper _sessionHelper;
-        private readonly IProductService _productService;
-        private readonly IOrderProductService _orderProductService;
-        private readonly IEmailService _emailService;
-        private readonly IHostingEnvironment _appEnvironment;
+    { 
+        private readonly ISessionHelper _sessionHelper; 
         private readonly ICartService _cartService;
 
-        public CartController(IOrderService service,
-            ISessionHelper helper,
-            IProductService product,
-            IAccountService account,
-            IOrderProductService orderProductService,
-            IEmailService emailService,
-            ICartService cartService,
-            IHostingEnvironment appEnvironment)
-        {
-            _orderService = service;
-            _sessionHelper = helper;
-            _productService = product;
-            _accountService = account;
-            _orderProductService = orderProductService;
-            _emailService = emailService;
-            _cartService = cartService;
-            _appEnvironment = appEnvironment;
+        public CartController( 
+            ISessionHelper helper, 
+            ICartService cartService )
+        { 
+            _sessionHelper = helper; 
+            _cartService = cartService; 
         }
         [HttpGet]
         [Authorize]
@@ -75,10 +57,10 @@ namespace App.WebAPI.Controllers
 
             var user_id = User.Claims.First(c => c.Type == "UserID").Value;
             var order = await _cartService.BuyAll(HttpContext, cart_products, user_id);
-            return Ok(order); 
+            return Ok(order);
         }
 
-        [HttpDelete("{id}")] 
+        [HttpDelete("{id}")]
         [Authorize]
         public IActionResult RemoveProduct(int id)
         {

@@ -51,11 +51,18 @@ namespace App.BLL.Services
         {
             try
             {
-                var product = new Product {Name=createProduct.Name, DateAdded=DateTime.Now, Description=createProduct.Description, Price=createProduct.Price }; 
-                var db_prod = await _db.Products.CreateAsync(product); 
-                foreach(var image in createProduct.UploadImages)
+                var product = new Product { Name = createProduct.Name, DateAdded = DateTime.Now, Description = createProduct.Description, Price = createProduct.Price };
+                var db_prod = await _db.Products.CreateAsync(product);
+                if (createProduct.UploadImages != null)
                 {
-                    await _fileService.CreatePhotoAsync(image, db_prod.Id);
+                    foreach (var image in createProduct.UploadImages)
+                    {
+                        await _fileService.CreatePhotoAsync(image, db_prod.Id);
+                    }
+                }
+                else
+                {
+                    await _fileService.CreatePhotoAsync(null, db_prod.Id);
                 }
                 var prod = new ProductEditOrCreateVM(db_prod);
                 return prod;
@@ -70,7 +77,7 @@ namespace App.BLL.Services
         {
             try
             {
-                var db_prod = await GetDbProductAsync(editProduct.Id);
+                var db_prod = await GetDbProductAsync((int)editProduct.Id);
                 if (db_prod==null)
                 {
                     return null;

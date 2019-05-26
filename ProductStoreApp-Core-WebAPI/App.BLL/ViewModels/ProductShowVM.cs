@@ -13,7 +13,10 @@ namespace App.BLL.ViewModels
         public decimal Price { get; set; }
         //public DateTime DateAdded { get; set; }
         public List<string> ImagesURL { get; set; }
+        public ProductShowVM()
+        {
 
+        }
         public ProductShowVM(Product product)
         {
             Id = product.Id;
@@ -28,3 +31,15 @@ namespace App.BLL.ViewModels
         }
     }
 }
+/*
+ 
+    export class ProductEditOrCreate
+    {
+        Id: number,
+        Name: string,
+        Price: number,
+        Description: string,
+        ImagesURL: string[]
+    }
+
+*/

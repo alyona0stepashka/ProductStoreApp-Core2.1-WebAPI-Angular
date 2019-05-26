@@ -1,53 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using App.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using App.BLL.Infrastructure;
-using App.BLL.Interfaces;
-using App.BLL.ViewModels;
-using App.Models;
-using System.Threading.Tasks;
 
 namespace App.WebAPI.Controllers
 {
     [Route("api/orders")]
     [ApiController]
     public class OrderController : ControllerBase
-    {
-        private readonly IAccountService _accountService;
-        private readonly IOrderService _orderService;
-        private readonly ISessionHelper _sessionHelper;
-        private readonly IProductService _productService;
-        private readonly IOrderProductService _orderProductService;
-        private readonly IEmailService _emailService;
-        private readonly IHostingEnvironment _appEnvironment;
+    { 
+        private readonly IOrderService _orderService; 
 
-        public OrderController(IOrderService service,
-            ISessionHelper helper,
-            IProductService product,
-            IAccountService account,
-            IOrderProductService orderProductService,
-            IEmailService emailService,
-            IHostingEnvironment appEnvironment)
+        public OrderController(IOrderService service )
         {
-            _orderService = service;
-            _sessionHelper = helper;
-            _productService = product;
-            _accountService = account;
-            _orderProductService = orderProductService;
-            _emailService = emailService;
-            _appEnvironment = appEnvironment;
+            _orderService = service; 
         }
-         
-         
+
+
         [HttpGet]
         [Route("admin")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllHistories()
-        { 
-            var order_history = (await _orderService.GetHistoryAsync(null)).ToList(); 
+        {
+            var order_history = (await _orderService.GetHistoryAsync(null)).ToList();
             return Ok(order_history);
         }
 
@@ -66,7 +46,7 @@ namespace App.WebAPI.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllHistoriesByDate(DateTime dateFrom, DateTime dateTo)
         {
-            var order_history = (await _orderService.GetHistoryAsync(null)).ToList().Where(m=>m.DatePurchase<=dateTo && m.DatePurchase>=dateFrom);
+            var order_history = (await _orderService.GetHistoryAsync(null)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
             return Ok(order_history);
         }
 
@@ -79,7 +59,7 @@ namespace App.WebAPI.Controllers
             var order_history = (await _orderService.GetHistoryAsync(user_id)).ToList().Where(m => m.DatePurchase <= dateTo && m.DatePurchase >= dateFrom);
             return Ok(order_history);
         }
-         
+
 
         /*
         [HttpPost]

@@ -13,5 +13,19 @@ namespace App.BLL.ViewModels
 
         [Required]
         public string Password { get; set; }
+        public UserLoginVM()
+        {
+
+        }
     }
 }
+
+/*
+ 
+    export class UserLogin
+    {
+        UserName: string,
+        Password: string
+    }
+
+*/

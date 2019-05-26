@@ -17,6 +17,7 @@ namespace App.Models
 
         [ForeignKey("FileModel")]
         public int FileModelId { get; set; }
+
         public virtual FileModel FileModel { get; set; }
 
         public virtual List<Order> Orders { get; set; }
